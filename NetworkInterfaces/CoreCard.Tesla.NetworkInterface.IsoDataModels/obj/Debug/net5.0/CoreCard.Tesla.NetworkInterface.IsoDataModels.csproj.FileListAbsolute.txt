@@ -1,0 +1,15 @@
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.deps.json
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\bin\Debug\net5.0\ref\CoreCard.Tesla.NetworkInterface.IsoDataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.pdb
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\bin\Debug\net5.0\CoreCard.Tesla.Utilities.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\bin\Debug\net5.0\CoreCard.Tesla.Utilities.pdb
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.csprojAssemblyReference.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.AssemblyInfoInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.AssemblyInfo.cs
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.csproj.CoreCompileInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.csproj.CopyComplete
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\obj\Debug\net5.0\ref\CoreCard.Tesla.NetworkInterface.IsoDataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.pdb

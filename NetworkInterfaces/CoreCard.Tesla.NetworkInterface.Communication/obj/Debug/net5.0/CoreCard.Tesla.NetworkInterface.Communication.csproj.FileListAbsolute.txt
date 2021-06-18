@@ -1,0 +1,15 @@
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.deps.json
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\bin\Debug\net5.0\ref\CoreCard.Tesla.NetworkInterface.Communication.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.pdb
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\bin\Debug\net5.0\CoreCard.Tesla.Utilities.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\bin\Debug\net5.0\CoreCard.Tesla.Utilities.pdb
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.csprojAssemblyReference.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.AssemblyInfoInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.AssemblyInfo.cs
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.csproj.CoreCompileInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.csproj.CopyComplete
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\obj\Debug\net5.0\ref\CoreCard.Tesla.NetworkInterface.Communication.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.Communication.pdb

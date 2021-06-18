@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\CoreCard.Tesla.Falcon.DataModels\CoreCard.Tesla.Falcon.DataModels.csproj" />
+    <ProjectReference Include="..\CoreCard.Tesla.Falcon.DbRepository\CoreCard.Tesla.Falcon.DbRepository.csproj" />
+    <ProjectReference Include="..\..\Common\CoreCard.Tesla.Common\CoreCard.Tesla.Utilities.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>

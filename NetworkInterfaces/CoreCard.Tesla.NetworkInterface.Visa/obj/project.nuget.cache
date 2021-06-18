@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "8VUUPEsTO7SiQwI37Ett+nAY0I542qWiAa2qU0Jd+UaQ5NBeFRmIdVlA+x62GC04JMhdVBmLge0doCX/bwEkGw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\NetworkInterfaces\\CoreCard.Tesla.NetworkInterface.Visa\\CoreCard.Tesla.NetworkInterface.Visa.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}

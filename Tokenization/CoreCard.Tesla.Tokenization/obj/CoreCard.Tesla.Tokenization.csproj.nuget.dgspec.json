@@ -1,0 +1,362 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization\\CoreCard.Tesla.Tokenization.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.CacheProvider\\CoreCard.Tesla.CacheProvider.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.CacheProvider\\CoreCard.Tesla.CacheProvider.csproj",
+        "projectName": "CoreCard.Tesla.CacheProvider",
+        "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.CacheProvider\\CoreCard.Tesla.CacheProvider.csproj",
+        "packagesPath": "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.CacheProvider\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Rajesh.waghmare\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj": {
+                "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.Extensions.Caching.Memory": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
+            "newtonsoft.json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj",
+        "projectName": "CoreCard.Tesla.Utilities",
+        "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj",
+        "packagesPath": "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Rajesh.waghmare\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "NewtonSoft.JSON": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "npgsql": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization.DataModels\\CoreCard.Tesla.Tokenization.DataModels.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization.DataModels\\CoreCard.Tesla.Tokenization.DataModels.csproj",
+        "projectName": "CoreCard.Tesla.Tokenization.DataModels",
+        "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization.DataModels\\CoreCard.Tesla.Tokenization.DataModels.csproj",
+        "packagesPath": "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization.DataModels\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Rajesh.waghmare\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization\\CoreCard.Tesla.Tokenization.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization\\CoreCard.Tesla.Tokenization.csproj",
+        "projectName": "CoreCard.Tesla.Tokenization",
+        "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization\\CoreCard.Tesla.Tokenization.csproj",
+        "packagesPath": "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Rajesh.waghmare\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.CacheProvider\\CoreCard.Tesla.CacheProvider.csproj": {
+                "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.CacheProvider\\CoreCard.Tesla.CacheProvider.csproj"
+              },
+              "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj": {
+                "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj"
+              },
+              "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization.DataModels\\CoreCard.Tesla.Tokenization.DataModels.csproj": {
+                "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization.DataModels\\CoreCard.Tesla.Tokenization.DataModels.csproj"
+              },
+              "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\Tesla.TokenizationUtilityProvider\\Tesla.TokenizationUtilityProvider.csproj": {
+                "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\Tesla.TokenizationUtilityProvider\\Tesla.TokenizationUtilityProvider.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[5.6.3, )"
+            },
+            "npgsql": {
+              "target": "Package",
+              "version": "[5.0.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\Tesla.TokenizationUtilityProvider\\Tesla.TokenizationUtilityProvider.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\Tesla.TokenizationUtilityProvider\\Tesla.TokenizationUtilityProvider.csproj",
+        "projectName": "Tesla.TokenizationUtilityProvider",
+        "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\Tesla.TokenizationUtilityProvider\\Tesla.TokenizationUtilityProvider.csproj",
+        "packagesPath": "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\Tesla.TokenizationUtilityProvider\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Rajesh.waghmare\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.CacheProvider\\CoreCard.Tesla.CacheProvider.csproj": {
+                "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.CacheProvider\\CoreCard.Tesla.CacheProvider.csproj"
+              },
+              "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj": {
+                "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj"
+              },
+              "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization.DataModels\\CoreCard.Tesla.Tokenization.DataModels.csproj": {
+                "projectPath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\Tokenization\\CoreCard.Tesla.Tokenization.DataModels\\CoreCard.Tesla.Tokenization.DataModels.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.Extensions.Http.Polly": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[7.2.2, )"
+            },
+            "System.Net.Http": {
+              "target": "Package",
+              "version": "[4.3.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

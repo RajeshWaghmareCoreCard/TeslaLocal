@@ -1,0 +1,17 @@
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.deps.json
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\bin\Debug\net5.0\ref\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.pdb
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\bin\Debug\net5.0\CoreCard.Tesla.Utilities.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.IsoDataModels.pdb
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\bin\Debug\net5.0\CoreCard.Tesla.Utilities.pdb
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.csprojAssemblyReference.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.AssemblyInfoInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.AssemblyInfo.cs
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.csproj.CoreCompileInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.csproj.CopyComplete
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\obj\Debug\net5.0\ref\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.pdb

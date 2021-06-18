@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "nf5tIs3P/40YjaSoZXw+nCg7Sul9XhZL2BkojPjgTKP/kcQkjgTmklRrGgs1SAbMDjWSnzM3nMH4naFSz97Gyw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\NetworkInterfaces\\CoreCard.Tesla.NetworkInterface.Adapter\\CoreCard.Tesla.NetworkInterface.Adapter.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -1,0 +1,12 @@
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\bin\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.deps.json
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\bin\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\bin\Debug\net5.0\ref\CoreCard.Tesla.Falcon.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\bin\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.pdb
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\obj\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.csprojAssemblyReference.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\obj\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\obj\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.AssemblyInfoInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\obj\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.AssemblyInfo.cs
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\obj\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.csproj.CoreCompileInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\obj\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\obj\Debug\net5.0\ref\CoreCard.Tesla.Falcon.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\Falcon\CoreCard.Tesla.Falcon.DataModels\obj\Debug\net5.0\CoreCard.Tesla.Falcon.DataModels.pdb

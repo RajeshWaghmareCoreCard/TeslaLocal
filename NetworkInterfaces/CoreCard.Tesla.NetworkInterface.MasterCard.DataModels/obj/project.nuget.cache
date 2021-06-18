@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "0Zrukt41xjZI0ABFEjsZVKC6jYQARzDWKE5OZUtnsifzuzG47TZiyxhMKwsN+6hLjVF3p91SbRi8Ypb1MPv5gg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\Tesla\\NetworkInterfaces\\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\npgsql\\5.0.5\\npgsql.5.0.5.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}

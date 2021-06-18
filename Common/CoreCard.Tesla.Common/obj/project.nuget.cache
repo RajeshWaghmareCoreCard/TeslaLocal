@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "hOTBmHDCzB+P2u7CTVEvLbPxj/ArAZXTfoensBGze5SxRuFxURxVPOvxJ2B6Iv7io0+14IVQkayyHjX9sNYP1A==",
+  "success": true,
+  "projectFilePath": "c:\\Users\\Rajesh.waghmare\\Documents\\GitHub\\TeslaLocal\\Common\\CoreCard.Tesla.Common\\CoreCard.Tesla.Utilities.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\npgsql\\5.0.5\\npgsql.5.0.5.nupkg.sha512",
+    "C:\\Users\\Rajesh.waghmare\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\4.6.0\\system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}

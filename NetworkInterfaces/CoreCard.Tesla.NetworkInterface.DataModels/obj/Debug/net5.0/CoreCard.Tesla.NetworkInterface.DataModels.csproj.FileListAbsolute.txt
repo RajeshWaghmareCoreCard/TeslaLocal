@@ -1,0 +1,12 @@
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.deps.json
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\bin\Debug\net5.0\ref\CoreCard.Tesla.NetworkInterface.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\bin\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.pdb
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.csprojAssemblyReference.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.AssemblyInfoInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.AssemblyInfo.cs
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.csproj.CoreCompileInputs.cache
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\obj\Debug\net5.0\ref\CoreCard.Tesla.NetworkInterface.DataModels.dll
+C:\Users\Rajesh.waghmare\Documents\GitHub\Tesla\NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\obj\Debug\net5.0\CoreCard.Tesla.NetworkInterface.DataModels.pdb
