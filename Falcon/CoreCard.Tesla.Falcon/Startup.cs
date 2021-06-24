@@ -1,6 +1,8 @@
 using CoreCard.Telsa.Cache;
+using CoreCard.Tesla.Falcon.ADORepository;
 using CoreCard.Tesla.Falcon.DbRepository.RepoInterfaces;
 using CoreCard.Tesla.Falcon.Services;
+using CoreCard.Tesla.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -28,6 +30,7 @@ namespace CoreCard.Tesla.Falcon
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CoreCard.Tesla.Falcon", Version = "v1" });
             });
+            services.AddTransient<TimeLogger>();
 
             services.RegisterConfigs(Configuration);
 
@@ -48,6 +51,11 @@ namespace CoreCard.Tesla.Falcon
             services.RegisterFalconServices();
 
             services.InitApplicationCache();
+
+            //Added by Suraj Kovoor
+            services.RegisterADORepositoryDI();
+            services.RegisterBALDI();
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

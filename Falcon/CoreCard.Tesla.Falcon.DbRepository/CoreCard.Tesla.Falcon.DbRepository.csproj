@@ -10,6 +10,12 @@
     <PackageReference Include="Npgsql" Version="5.0.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="DBAdapter">
+      <HintPath>bin\DBAdapter.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
