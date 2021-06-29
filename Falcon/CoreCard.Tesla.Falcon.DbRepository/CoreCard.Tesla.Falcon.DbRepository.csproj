@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\DBAdapter\DBAdapter.csproj" />
     <ProjectReference Include="..\..\Falcon\CoreCard.Tesla.Falcon.DataModels\CoreCard.Tesla.Falcon.DataModels.csproj" />
     <ProjectReference Include="..\..\Common\CoreCard.Tesla.Common\CoreCard.Tesla.Utilities.csproj" />
     <ProjectReference Include="..\..\Common\CoreCard.Tesla.CacheProvider\CoreCard.Tesla.CacheProvider.csproj" />
@@ -8,12 +9,6 @@
 
   <ItemGroup>
     <PackageReference Include="Npgsql" Version="5.0.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="DBAdapter">
-      <HintPath>bin\DBAdapter.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <PropertyGroup>

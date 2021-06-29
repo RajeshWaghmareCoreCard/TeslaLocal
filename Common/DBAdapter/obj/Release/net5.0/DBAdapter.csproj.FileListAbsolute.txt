@@ -1,0 +1,14 @@
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\bin\Release\net5.0\DBAdapter.deps.json
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\bin\Release\net5.0\DBAdapter.dll
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\bin\Release\net5.0\ref\DBAdapter.dll
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\bin\Release\net5.0\DBAdapter.pdb
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\bin\Release\net5.0\Encrypt.DLL
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\obj\Release\net5.0\DBAdapter.csprojAssemblyReference.cache
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\obj\Release\net5.0\DBAdapter.GeneratedMSBuildEditorConfig.editorconfig
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\obj\Release\net5.0\DBAdapter.AssemblyInfoInputs.cache
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\obj\Release\net5.0\DBAdapter.AssemblyInfo.cs
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\obj\Release\net5.0\DBAdapter.csproj.CoreCompileInputs.cache
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\obj\Release\net5.0\DBAdapter.csproj.CopyComplete
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\obj\Release\net5.0\DBAdapter.dll
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\obj\Release\net5.0\ref\DBAdapter.dll
+D:\SVN\PlatSVNVersion\BaseCode\DBAdapter\obj\Release\net5.0\DBAdapter.pdb

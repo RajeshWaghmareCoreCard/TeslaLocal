@@ -1,5 +1,6 @@
 ﻿using CoreCard.Tesla.Falcon.DataModels.Entity;
 using CoreCard.Tesla.Falcon.DataModels.Model;
+using DBAdapter;
 using System;
 using System.Threading.Tasks;
 
@@ -18,5 +19,7 @@ namespace CoreCard.Tesla.Falcon.Services
         Account UpdatePurchase(Account t);
         Account UpdatePurchase(Account t, DBAdapter.IDataBaseCommand dbCommand);
         Account UpdateAccountWithPayment(Account t, DBAdapter.IDataBaseCommand dbCommand);
+
+        Account GetAccountByID_ADO(Guid id, DBAdapter.IDataBaseCommand dbCommand);
     }
 }

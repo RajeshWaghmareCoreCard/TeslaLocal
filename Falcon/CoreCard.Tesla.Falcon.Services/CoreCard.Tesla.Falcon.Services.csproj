@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\DBAdapter\DBAdapter.csproj" />
     <ProjectReference Include="..\CoreCard.Tesla.Falcon.DataModels\CoreCard.Tesla.Falcon.DataModels.csproj" />
     <ProjectReference Include="..\CoreCard.Tesla.Falcon.DbRepository\CoreCard.Tesla.Falcon.DbRepository.csproj" />
     <ProjectReference Include="..\CoreCard.Tesla.Falcon.ADC\CoreCard.Tesla.Falcon.Adc.csproj" />
@@ -9,12 +10,6 @@
 
   <ItemGroup>
     <Folder Include="ADOBAL\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="DBAdapter">
-      <HintPath>..\CoreCard.Tesla.Falcon.DbRepository\bin\DBAdapter.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <PropertyGroup>

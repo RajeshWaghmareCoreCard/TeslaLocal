@@ -1,27 +1,34 @@
-﻿using CoreCard.Tesla.Falcon.DataModels.Entity;
-using DBAdapter;
+﻿using DBAdapter;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CoreCard.Tesla.Falcon.DataModels.Entity;
+using System.Data;
 
 namespace CoreCard.Tesla.Falcon.ADORepository
 {
     public class ADOAccountRepository : BaseCockroachADO, IADOAccountRepository
     {
-        public ADOAccountRepository(IConfiguration configuration) :base(configuration)
+        public ADOAccountRepository(IConfiguration configuration) : base(configuration)
         {
         }
         public Account Add(Account t)
         {
             throw new NotImplementedException();
         }
-
+        public List<Account> Get(Guid id, string idtype)
+        {
+            throw new NotImplementedException();
+        }
+        public Account Get(UInt64 id, string idtype)
+        {
+            throw new NotImplementedException();
+        }
         public Task<Account> AddAsync(Account t, CancellationToken token = default)
         {
             throw new NotImplementedException();
@@ -44,7 +51,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 
         public Account Get(Guid id)
         {
-            string sql = "SELECT * FROM Account where accountid ='"+id+"'";
+            string sql = "SELECT * FROM Account where accountid ='" + id + "'";
 
             DataSet ds = _dbCommand.GetDataSet(sql);
 
@@ -55,7 +62,19 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             }
             return acc;
         }
+        public Account Get(UInt64 AccountNumber)
+        {
+            string sql = "SELECT * FROM Account where accountnumber =" + AccountNumber.ToString();
 
+            DataSet ds = _dbCommand.GetDataSet(sql);
+
+            Account acc = new Account();
+            foreach (DataRow dataRow in ds.Tables[0].Rows)
+            {
+                acc = (Account)dataRow;
+            }
+            return acc;
+        }
         public List<Account> GetAll()
         {
             throw new NotImplementedException();
@@ -112,19 +131,6 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             throw new NotImplementedException();
         }
 
-        public Account Get(UInt64 AccountNumber)
-        {
-            string sql = "SELECT * FROM Account where accountnumber =" + AccountNumber.ToString();
-
-            DataSet ds = _dbCommand.GetDataSet(sql);
-
-            Account acc = new Account();
-            foreach (DataRow dataRow in ds.Tables[0].Rows)
-            {
-                acc = (Account)dataRow;
-            }
-            return acc;
-        }
         public Account UpdateAccountWithPayment(Account t, IDataBaseCommand dbCommand)
         {
             StringBuilder sb = new StringBuilder();
@@ -145,8 +151,9 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             }
 
             return o;
-
+       
         }
+
         public Account UpdatePurchase(Account t)
         {
             StringBuilder sb = new StringBuilder();
@@ -178,17 +185,19 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             sb.Append(string.Format("principal = {0}, ", t.principal));
             sb.Append(string.Format("purchaseamount = {0} ", t.purchaseamount));
             sb.Append(" where accountid = '" + t.accountid.ToString() + "';");
-            sb.Append(" select * from account where accountid = '" + t.accountid.ToString() + "';");
+            //sb.Append(" select * from account where accountid = '" + t.accountid.ToString() + "';");
 
-            DataSet ds = dbCommand.GetDataSet(sb.ToString());
+            //DataSet ds = dbCommand.GetDataSet(sb.ToString());
+            dbCommand.ExecuteNonQuery(sb.ToString());
             Account o = new Account();
-            if (ds != null && ds.Tables.Count > 0)
-            {
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    o = (Account)ds.Tables[0].Rows[0];
-                }
-            }
+            o = GetAccountByID(t.accountid, dbCommand);
+            //if (ds != null && ds.Tables.Count > 0)
+            //{
+            //    if (ds.Tables[0].Rows.Count > 0)
+            //    {
+            //        o = (Account)ds.Tables[0].Rows[0];
+            //    }
+            //}
 
             return o;
         }
@@ -198,6 +207,15 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             IDictionary<string, object> dic = t.ToDictionary();
             object uuid = databaseCommand.ExecuteParameterizedScalarCommand("insert into account(accountnumber,customerid,creditlimit,currentbal,principal,purchaseamount,fees,interest,purchasecount,paymentamount,paymentcount) values (@accountnumber,@customerid,@creditlimit,@currentbal,@principal,@purchaseamount,@fees,@interest,@purchasecount,@paymentamount,@paymentcount) Returning accountid;", dic);
             return (Guid)uuid;
+        }
+
+        public Account GetAccountByID(Guid guid, IDataBaseCommand dataBaseCommand)
+        {
+            Account acc = new Account();
+
+            acc = dataBaseCommand.ExecuteDatareader<Account>("SELECT accountid, accountnumber,ifnull(customerid,'00000000-0000-0000-0000-000000000000') as customerid,creditlimit,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount,ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status FROM Account where accountid ='" + guid + "' for update;").FirstOrDefault();
+
+            return acc;
         }
     }
 }

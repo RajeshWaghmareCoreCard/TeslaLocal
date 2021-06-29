@@ -1,14 +1,14 @@
-﻿using CoreCard.Tesla.Falcon.DataModels.Entity;
-using DBAdapter;
+﻿using DBAdapter;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using CoreCard.Tesla.Falcon.DataModels.Entity;
+using System.Data;
 
 namespace CoreCard.Tesla.Falcon.ADORepository
 {
@@ -121,6 +121,15 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         {
             IDictionary<string, object> dic = t.ToDictionary();
             dataBaseCommand.ExecuteParameterizedScalarCommand("insert into embossing(accountid,cardtype,cardnumber) values (@accountid,@cardtype,@cardnumber)  Returning accountid;", dic);
+        }
+
+        public Embossing GetEmbossingByCardNumber(string cardnumber, IDataBaseCommand dataBaseCommand)
+        {
+            Embossing acc = new Embossing();
+
+            acc = dataBaseCommand.ExecuteDatareader<Embossing>("select embossingid, ifnull(accountid,'00000000-0000-0000-0000-000000000000') as accountid,ifnull(cardtype,0)as cardtype,ifnull(cardnumber,'') as cardnumber from embossing where cardnumber = '" + cardnumber.Trim() + "' for update;").FirstOrDefault();
+
+            return acc;
         }
     }
 }

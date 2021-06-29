@@ -5,47 +5,49 @@ VisualStudioVersion = 16.6.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NetworkInterfaces", "NetworkInterfaces", "{E59635CF-5A85-4BDE-8785-DA1F5CFBE063}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.NetworkInterface.Adapter", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Adapter\CoreCard.Tesla.NetworkInterface.Adapter.csproj", "{CB6FDF7D-6DAE-4CB6-8C6E-DFB5153FC549}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.NetworkInterface.Adapter", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Adapter\CoreCard.Tesla.NetworkInterface.Adapter.csproj", "{CB6FDF7D-6DAE-4CB6-8C6E-DFB5153FC549}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.NetworkInterface.DataModels", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\CoreCard.Tesla.NetworkInterface.DataModels.csproj", "{E2D19124-016E-41D1-8C84-43CC1458F87D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.NetworkInterface.DataModels", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.DataModels\CoreCard.Tesla.NetworkInterface.DataModels.csproj", "{E2D19124-016E-41D1-8C84-43CC1458F87D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.NetworkInterface.IsoDataModels", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\CoreCard.Tesla.NetworkInterface.IsoDataModels.csproj", "{843F9198-0B35-4D7B-A132-0D18624D6C05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.NetworkInterface.IsoDataModels", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.IsoDataModels\CoreCard.Tesla.NetworkInterface.IsoDataModels.csproj", "{843F9198-0B35-4D7B-A132-0D18624D6C05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.NetworkInterface.MasterCard", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard\CoreCard.Tesla.NetworkInterface.MasterCard.csproj", "{4D339ED5-8C14-4665-9CBA-5195FBA93BA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.NetworkInterface.MasterCard", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard\CoreCard.Tesla.NetworkInterface.MasterCard.csproj", "{4D339ED5-8C14-4665-9CBA-5195FBA93BA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.NetworkInterface.Visa", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Visa\CoreCard.Tesla.NetworkInterface.Visa.csproj", "{82C2985D-7012-4F5A-8F8B-7D67D835C8EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.NetworkInterface.Visa", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Visa\CoreCard.Tesla.NetworkInterface.Visa.csproj", "{82C2985D-7012-4F5A-8F8B-7D67D835C8EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tokenization", "Tokenization", "{0D5C8F7C-3E68-4DA3-9B86-90F65C96574C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.Tokenization", "Tokenization\CoreCard.Tesla.Tokenization\CoreCard.Tesla.Tokenization.csproj", "{47CC0CE8-88E5-4A38-8013-B1F91F914581}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.Tokenization", "Tokenization\CoreCard.Tesla.Tokenization\CoreCard.Tesla.Tokenization.csproj", "{47CC0CE8-88E5-4A38-8013-B1F91F914581}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.Tokenization.DataModels", "Tokenization\CoreCard.Tesla.Tokenization.DataModels\CoreCard.Tesla.Tokenization.DataModels.csproj", "{0CE5D70B-9B38-45ED-AFCB-579D729D54BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.Tokenization.DataModels", "Tokenization\CoreCard.Tesla.Tokenization.DataModels\CoreCard.Tesla.Tokenization.DataModels.csproj", "{0CE5D70B-9B38-45ED-AFCB-579D729D54BC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Falcon", "Falcon", "{43E428F0-ADC9-11EB-9274-21184D7D39F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.Falcon.Adc", "Falcon\CoreCard.Tesla.Falcon.ADC\CoreCard.Tesla.Falcon.Adc.csproj", "{B115FD18-2655-4BBD-A193-2256BA182BDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.Falcon.Adc", "Falcon\CoreCard.Tesla.Falcon.ADC\CoreCard.Tesla.Falcon.Adc.csproj", "{B115FD18-2655-4BBD-A193-2256BA182BDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.Falcon.DataModels", "Falcon\CoreCard.Tesla.Falcon.DataModels\CoreCard.Tesla.Falcon.DataModels.csproj", "{2D9170EB-DDC6-48B7-8146-C44E74BB3146}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.Falcon.DataModels", "Falcon\CoreCard.Tesla.Falcon.DataModels\CoreCard.Tesla.Falcon.DataModels.csproj", "{2D9170EB-DDC6-48B7-8146-C44E74BB3146}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.Falcon.DbRepository", "Falcon\CoreCard.Tesla.Falcon.DbRepository\CoreCard.Tesla.Falcon.DbRepository.csproj", "{6ED96E8B-EA89-4AAD-8DC6-FC2E138A87F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.Falcon.DbRepository", "Falcon\CoreCard.Tesla.Falcon.DbRepository\CoreCard.Tesla.Falcon.DbRepository.csproj", "{6ED96E8B-EA89-4AAD-8DC6-FC2E138A87F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.Falcon.Services", "Falcon\CoreCard.Tesla.Falcon.Services\CoreCard.Tesla.Falcon.Services.csproj", "{B32E5F0B-1412-4864-8344-E92A80E7F0E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.Falcon.Services", "Falcon\CoreCard.Tesla.Falcon.Services\CoreCard.Tesla.Falcon.Services.csproj", "{B32E5F0B-1412-4864-8344-E92A80E7F0E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.Falcon", "Falcon\CoreCard.Tesla.Falcon\CoreCard.Tesla.Falcon.csproj", "{51CADF4E-1923-4224-BAA6-4A2046FCD8B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.Falcon", "Falcon\CoreCard.Tesla.Falcon\CoreCard.Tesla.Falcon.csproj", "{51CADF4E-1923-4224-BAA6-4A2046FCD8B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.NetworkInterface.Communication", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\CoreCard.Tesla.NetworkInterface.Communication.csproj", "{852875E0-BF41-4C93-A930-EED6149A4619}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.NetworkInterface.Communication", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.Communication\CoreCard.Tesla.NetworkInterface.Communication.csproj", "{852875E0-BF41-4C93-A930-EED6149A4619}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9CB4527D-F905-435E-84DB-E33D93C29269}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.Utilities", "Common\CoreCard.Tesla.Common\CoreCard.Tesla.Utilities.csproj", "{BEF2C252-F1DF-4FCF-8300-FF1C11EC310C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.Utilities", "Common\CoreCard.Tesla.Common\CoreCard.Tesla.Utilities.csproj", "{BEF2C252-F1DF-4FCF-8300-FF1C11EC310C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.CacheProvider", "Common\CoreCard.Tesla.CacheProvider\CoreCard.Tesla.CacheProvider.csproj", "{220792D3-8F15-4767-8896-839879D294ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.CacheProvider", "Common\CoreCard.Tesla.CacheProvider\CoreCard.Tesla.CacheProvider.csproj", "{220792D3-8F15-4767-8896-839879D294ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.TokenizationUtilityProvider", "Tokenization\Tesla.TokenizationUtilityProvider\Tesla.TokenizationUtilityProvider.csproj", "{78C2A8AB-29EF-4B8F-BBDD-11C7620DD8A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesla.TokenizationUtilityProvider", "Tokenization\Tesla.TokenizationUtilityProvider\Tesla.TokenizationUtilityProvider.csproj", "{78C2A8AB-29EF-4B8F-BBDD-11C7620DD8A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.NetworkInterface.MasterCard.DataModels", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.csproj", "{60EC2226-B2BB-4127-9114-BE5C3B6351C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreCard.Tesla.NetworkInterface.MasterCard.DataModels", "NetworkInterfaces\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels\CoreCard.Tesla.NetworkInterface.MasterCard.DataModels.csproj", "{60EC2226-B2BB-4127-9114-BE5C3B6351C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tesla.Tokenization.Tests", "Tokenization\Tesla.Tokenization.Tests\Tesla.Tokenization.Tests.csproj", "{23BD2AF0-FEF7-42C8-8A76-85B89DA1E70B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesla.Tokenization.Tests", "Tokenization\Tesla.Tokenization.Tests\Tesla.Tokenization.Tests.csproj", "{23BD2AF0-FEF7-42C8-8A76-85B89DA1E70B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBAdapter", "Common\DBAdapter\DBAdapter.csproj", "{7B7C03CF-43DE-4A08-B215-7B3A9591E837}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,9 +57,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CB6FDF7D-6DAE-4CB6-8C6E-DFB5153FC549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -216,18 +215,6 @@ Global
 		{852875E0-BF41-4C93-A930-EED6149A4619}.Release|x64.Build.0 = Release|Any CPU
 		{852875E0-BF41-4C93-A930-EED6149A4619}.Release|x86.ActiveCfg = Release|Any CPU
 		{852875E0-BF41-4C93-A930-EED6149A4619}.Release|x86.Build.0 = Release|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Debug|x64.Build.0 = Debug|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Debug|x86.Build.0 = Debug|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Release|x64.ActiveCfg = Release|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Release|x64.Build.0 = Release|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Release|x86.ActiveCfg = Release|Any CPU
-		{AA7C7B06-A0AC-4A3E-A3C4-A0E9B47C9CA4}.Release|x86.Build.0 = Release|Any CPU
 		{BEF2C252-F1DF-4FCF-8300-FF1C11EC310C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BEF2C252-F1DF-4FCF-8300-FF1C11EC310C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEF2C252-F1DF-4FCF-8300-FF1C11EC310C}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -288,6 +275,21 @@ Global
 		{23BD2AF0-FEF7-42C8-8A76-85B89DA1E70B}.Release|x64.Build.0 = Release|Any CPU
 		{23BD2AF0-FEF7-42C8-8A76-85B89DA1E70B}.Release|x86.ActiveCfg = Release|Any CPU
 		{23BD2AF0-FEF7-42C8-8A76-85B89DA1E70B}.Release|x86.Build.0 = Release|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Debug|x64.Build.0 = Debug|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Debug|x86.Build.0 = Debug|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Release|x64.ActiveCfg = Release|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Release|x64.Build.0 = Release|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Release|x86.ActiveCfg = Release|Any CPU
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CB6FDF7D-6DAE-4CB6-8C6E-DFB5153FC549} = {E59635CF-5A85-4BDE-8785-DA1F5CFBE063}
@@ -308,5 +310,9 @@ Global
 		{78C2A8AB-29EF-4B8F-BBDD-11C7620DD8A1} = {0D5C8F7C-3E68-4DA3-9B86-90F65C96574C}
 		{60EC2226-B2BB-4127-9114-BE5C3B6351C0} = {E59635CF-5A85-4BDE-8785-DA1F5CFBE063}
 		{23BD2AF0-FEF7-42C8-8A76-85B89DA1E70B} = {0D5C8F7C-3E68-4DA3-9B86-90F65C96574C}
+		{7B7C03CF-43DE-4A08-B215-7B3A9591E837} = {9CB4527D-F905-435E-84DB-E33D93C29269}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AE795AB2-2D39-4306-9122-8FA0F5A96980}
 	EndGlobalSection
 EndGlobal

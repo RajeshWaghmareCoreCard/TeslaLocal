@@ -1,0 +1,14 @@
+D:\SVN\Tesla\Common\DBAdapter\bin\Debug\net5.0\DBAdapter.deps.json
+D:\SVN\Tesla\Common\DBAdapter\bin\Debug\net5.0\DBAdapter.dll
+D:\SVN\Tesla\Common\DBAdapter\bin\Debug\net5.0\ref\DBAdapter.dll
+D:\SVN\Tesla\Common\DBAdapter\bin\Debug\net5.0\DBAdapter.pdb
+D:\SVN\Tesla\Common\DBAdapter\bin\Debug\net5.0\Encrypt.DLL
+D:\SVN\Tesla\Common\DBAdapter\obj\Debug\net5.0\DBAdapter.csprojAssemblyReference.cache
+D:\SVN\Tesla\Common\DBAdapter\obj\Debug\net5.0\DBAdapter.GeneratedMSBuildEditorConfig.editorconfig
+D:\SVN\Tesla\Common\DBAdapter\obj\Debug\net5.0\DBAdapter.AssemblyInfoInputs.cache
+D:\SVN\Tesla\Common\DBAdapter\obj\Debug\net5.0\DBAdapter.AssemblyInfo.cs
+D:\SVN\Tesla\Common\DBAdapter\obj\Debug\net5.0\DBAdapter.csproj.CoreCompileInputs.cache
+D:\SVN\Tesla\Common\DBAdapter\obj\Debug\net5.0\DBAdapter.csproj.CopyComplete
+D:\SVN\Tesla\Common\DBAdapter\obj\Debug\net5.0\DBAdapter.dll
+D:\SVN\Tesla\Common\DBAdapter\obj\Debug\net5.0\ref\DBAdapter.dll
+D:\SVN\Tesla\Common\DBAdapter\obj\Debug\net5.0\DBAdapter.pdb

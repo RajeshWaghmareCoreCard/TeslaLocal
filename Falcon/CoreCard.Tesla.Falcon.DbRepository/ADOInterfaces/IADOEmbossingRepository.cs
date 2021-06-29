@@ -1,4 +1,6 @@
-﻿using CoreCard.Tesla.Falcon.DataModels.Entity;
+﻿using CoreCard.Tesla.Falcon.ADORepository;
+using CoreCard.Tesla.Falcon.DataModels.Entity;
+using DBAdapter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +13,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
     {
         Embossing GetEmbossingByCardNumber(string cardnumber);
         void Insert(Embossing embossing, DBAdapter.IDataBaseCommand dataBaseCommand);
+
+        Embossing GetEmbossingByCardNumber(string cardnumber, IDataBaseCommand dataBaseCommand);
     }
 }

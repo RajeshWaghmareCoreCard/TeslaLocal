@@ -1,21 +1,26 @@
-﻿using CoreCard.Tesla.Falcon.ADORepository;
-using CoreCard.Tesla.Falcon.DataModels.Entity;
+﻿using CoreCard.Tesla.Falcon.DataModels.Entity;
+using CoreCard.Tesla.Falcon.DataModels.Model;
 //using CockroachDb.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CoreCard.Tesla.Utilities;
+using System.Data.SqlClient;
+using CoreCard.Tesla.Falcon.ADORepository;
+using DBAdapter;
+using CoreCard.Tesla.Utilities;
 
 namespace CoreCard.Tesla.Falcon.Services
 {
-    public class EmbossingBAL : IEmbossingBAL
+    public class EmbossingBAL : /*BaseBAL<Embossing>, */IEmbossingBAL
     {
         //private readonly IEmbossingRepository _embossingRepository;
         private readonly IADOEmbossingRepository _iADOEmbossingRepository;
-        public EmbossingBAL(/*IEmbossingRepository embossingRepository, */IADOEmbossingRepository iADOEmbossingRepository)/* : base(embossingRepository)*/
+        public EmbossingBAL(/*IEmbossingRepository embossingRepository,*/ IADOEmbossingRepository iADOEmbossingRepository)// : base(embossingRepository)
         {
-           // _embossingRepository = embossingRepository;
+            //_embossingRepository = embossingRepository;
             _iADOEmbossingRepository = iADOEmbossingRepository;
         }
 
@@ -40,6 +45,10 @@ namespace CoreCard.Tesla.Falcon.Services
             return _iADOEmbossingRepository.GetEmbossingByCardNumber(cardnumber);
         }
 
+        public Embossing GetEmbossingByCardNumber(string cardnumber, DBAdapter.IDataBaseCommand dataBaseCommand)
+        {
+            return _iADOEmbossingRepository.GetEmbossingByCardNumber(cardnumber, dataBaseCommand);
+        }
         public void Insert(Guid accountid, DBAdapter.IDataBaseCommand dataBaseCommand)
         {
             Embossing embossing = new Embossing();
