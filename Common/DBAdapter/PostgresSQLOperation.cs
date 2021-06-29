@@ -1551,14 +1551,20 @@ namespace DBAdapter
                         entitys.Add(newObject);
                     }
                 }
-               // dr.Close();
+                // dr.Close();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 throw;
             }
-            
+            finally
+            {
+                if (this._autoCloseDBConn)
+                {
+                    CloseDBConnection();
+                }
+            }
+
             return entitys;
         }
 
