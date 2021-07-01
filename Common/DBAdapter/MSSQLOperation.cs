@@ -8,8 +8,7 @@ using System.Collections.Generic; //for iDictionary
 using System.Diagnostics;
 
 using System.Linq;
-
-
+using System.Threading.Tasks;
 
 namespace DBAdapter
 {
@@ -1594,6 +1593,32 @@ namespace DBAdapter
         }
 
         public List<T> ExecuteDatareader<T>(string SqlQuery) where T : new()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<object> BeginTransactionAsync()
+        {
+            if (IsDBConnectionOpen() == false)
+            {
+                OpenDBConnection();
+            }
+            return await this._sqlConn.BeginTransactionAsync();
+        }
+
+        public async Task CommitTransactionAsync(object tran)
+        {
+            SqlTransaction tranObj = (SqlTransaction)tran;
+            await tranObj.CommitAsync();
+        }
+
+        public async Task RollbackTransactionAsync(object tran)
+        {
+            SqlTransaction tranObj = (SqlTransaction)tran;
+            await tranObj.RollbackAsync();
+        }
+
+        public async Task<List<T>> ExecuteDatareaderAsync<T>(string SqlQuery) where T : new()
         {
             throw new NotImplementedException();
         }

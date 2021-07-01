@@ -12,5 +12,8 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         Tuple<IDataBaseCommand,object> BeginTransaction();
         void CommitTransaction(IDataBaseCommand dbcommand, object tran);
         void RollbackTransaction(IDataBaseCommand dbcommand, object tran);
+        Task<Tuple<IDataBaseCommand, object>> BeginTransactionAsync();
+        Task CommitTransactionAsync(IDataBaseCommand dbcommand, object tran);
+        Task RollbackTransactionAsync(IDataBaseCommand dbcommand, object tran);
     }
 }

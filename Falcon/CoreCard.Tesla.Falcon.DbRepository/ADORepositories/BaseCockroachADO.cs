@@ -42,5 +42,25 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             dbcommand.RollbackTransaction(tran);
             dbcommand.CloseDBConnection();
         }
+        public async Task<Tuple<IDataBaseCommand, object>> BeginTransactionAsync()
+        {
+            IDataBaseCommand dataBaseCommand = DBAdapter.DBOperation.GetDBObject("postgres");
+            dataBaseCommand.ConnString = _configuration.GetConnectionString("CockroachDb");
+            dataBaseCommand.AutoCloseDBConnection = false;
+            _TranObject = await dataBaseCommand.BeginTransactionAsync();
+            return Tuple.Create(dataBaseCommand, _TranObject);
+        }
+
+        public async Task CommitTransactionAsync(IDataBaseCommand dbcommand, object tran)
+        {
+            await dbcommand.CommitTransactionAsync(tran);
+            dbcommand.CloseDBConnection();
+        }
+
+        public async Task RollbackTransactionAsync(IDataBaseCommand dbcommand, object tran)
+        {
+            await dbcommand.RollbackTransactionAsync(tran);
+            dbcommand.CloseDBConnection();
+        }
     }
 }

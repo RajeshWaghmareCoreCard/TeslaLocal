@@ -57,9 +57,7 @@ namespace CoreCard.Tesla.Falcon.Services
 
         public async Task<BaseResponseDTO> AddTransactionAsync(TransactionAddDTO transactionAddDTO)
         {
-            //lock (lockObject)
-            //{
-            transactionTuple = _baseCockroachADO.BeginTransaction();
+            transactionTuple = await _baseCockroachADO.BeginTransactionAsync();
             BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
             int responseType = 0;
             Account updatedAccount = new Account();
@@ -69,7 +67,6 @@ namespace CoreCard.Tesla.Falcon.Services
                 //using (TransactionScope transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 //{
                 Transaction intransact = TransactionAddDTO.MapToTransaction(transactionAddDTO);
-
                 Embossing embossing = _embossingBAL.GetEmbossingByCardNumber(transactionAddDTO.cardnumber, transactionTuple.Item1);
                 if (embossing != null)
                 {
@@ -130,27 +127,15 @@ namespace CoreCard.Tesla.Falcon.Services
                         //await _transInAcctBal.AddAsync(trans_In_Acct);
                         _transInAcctBal.Insert(trans_In_Acct, transactionTuple.Item1);
 
-                        //_transactionRepository.Save();
 
-                        //_accountBAL.Save();
-                        //_PlansegmentBAL.Save();
-                        //_loyaltyPlanBAL.Save();
-                        //_transactionRepository.Save();
-                        //_logArTxnBAL.Save();
-                        //_cBLogBAL.Save();
-
-                        //    transaction.Complete();
-
-                        //}
-
-                        _baseCockroachADO.CommitTransaction(transactionTuple.Item1, transactionTuple.Item2);
+                        await _baseCockroachADO.CommitTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
                         baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
                         baseResponseDTO.BaseEntityInstance = updatedAccount;
                         return baseResponseDTO;
                     }
                     else
                     {
-                        _baseCockroachADO.RollbackTransaction(transactionTuple.Item1, transactionTuple.Item2);
+                        await _baseCockroachADO.RollbackTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
                         baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
                         baseResponseDTO.BaseEntityInstance = "Error{'Message':'Purchase Denied.Purchase amount + Current Balance greater than credit limit.'}";
                         return baseResponseDTO;
@@ -158,7 +143,7 @@ namespace CoreCard.Tesla.Falcon.Services
                 }
                 else
                 {
-                    _baseCockroachADO.RollbackTransaction(transactionTuple.Item1, transactionTuple.Item2);
+                    await _baseCockroachADO.RollbackTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
                     baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
                     baseResponseDTO.BaseEntityInstance = "Error{'Message':'Account does not exist.'}";
                     return baseResponseDTO;
@@ -166,8 +151,9 @@ namespace CoreCard.Tesla.Falcon.Services
             }
             catch (Exception ex)
             {
+                //_logger.LogError(ex, "AddTransactionAsync");
                 //_transactionRepository.RejectChanges();
-                _baseCockroachADO.RollbackTransaction(transactionTuple.Item1, transactionTuple.Item2);
+                await _baseCockroachADO.RollbackTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
                 responseType = -1;
                 throw;
             }
@@ -184,7 +170,6 @@ namespace CoreCard.Tesla.Falcon.Services
             }
 
             //}
-
 
 
         }

@@ -49,6 +49,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tesla.Tokenization.Tests", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DBAdapter", "Common\DBAdapter\DBAdapter.csproj", "{7B7C03CF-43DE-4A08-B215-7B3A9591E837}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseScript", "DatabaseScript", "{68843863-5795-4BA8-8819-57AF08ED1C8E}"
+	ProjectSection(SolutionItems) = preProject
+		..\PlatSVNVersion\BaseCode\CockroachDBAPI\CockroachDbScript.sql = ..\PlatSVNVersion\BaseCode\CockroachDBAPI\CockroachDbScript.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

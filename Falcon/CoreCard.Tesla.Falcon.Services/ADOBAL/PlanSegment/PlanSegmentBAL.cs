@@ -42,9 +42,9 @@ namespace CoreCard.Tesla.Falcon.Services
             _iADOPlansegmentRepository.Add(t, dbcommand);
         }
 
-        public List<PlanSegment> GetPlanSegmentsByAccountID_ADO(Guid AccountID)
+        public List<PlanSegment> GetPlanSegmentsByAccountID_ADO(Guid AccountID, DBAdapter.IDataBaseCommand dbCommand)
         {
-            return _iADOPlansegmentRepository.Get(AccountID, "account");
+            return _iADOPlansegmentRepository.Get(AccountID, dbCommand);
         }
         public void UpdatePlanSegmentWithPayment(List<PlanSegment> planSegments, DBAdapter.IDataBaseCommand dbCommand)
         {

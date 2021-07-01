@@ -1551,11 +1551,11 @@ namespace DBAdapter
                         entitys.Add(newObject);
                     }
                 }
-                // dr.Close();
+               // dr.Close();
             }
             catch (Exception)
             {
-                throw;
+                    throw;
             }
             finally
             {
@@ -1571,6 +1571,32 @@ namespace DBAdapter
         private static bool IsNullableType(Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition().Equals(typeof(Nullable<>));
+        }
+
+        public async Task<object> BeginTransactionAsync()
+        {
+            if (IsDBConnectionOpen() == false)
+            {
+                OpenDBConnection();
+            }
+            return await this._sqlConn.BeginTransactionAsync();
+        }
+
+        public async Task CommitTransactionAsync(object tran)
+        {
+            NpgsqlTransaction tranObj = (NpgsqlTransaction)tran;
+            await tranObj.CommitAsync();
+        }
+
+        public async Task RollbackTransactionAsync(object tran)
+        {
+            NpgsqlTransaction tranObj = (NpgsqlTransaction)tran;
+            await tranObj.RollbackAsync();
+        }
+
+        public async Task<List<T>> ExecuteDatareaderAsync<T>(string SqlQuery) where T : new()
+        {
+            throw new NotImplementedException();
         }
     }
 }

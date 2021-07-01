@@ -11,7 +11,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 {
     public interface IADOAccountRepository: IADOCockroachDBRepository<Account>
     {
-        Account UpdateAccountWithPayment(Account t, IDataBaseCommand dbCommand);
+        void UpdateAccountWithPayment(Account t, IDataBaseCommand dbCommand);
         Account UpdatePurchase(Account t);
         Account UpdatePurchase(Account t, IDataBaseCommand dbCommand);
         Guid Insert(Account t, IDataBaseCommand databaseCommand);
@@ -19,5 +19,6 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         Account Get(UInt64 AccountNumber);
 
         Account GetAccountByID(Guid guid, IDataBaseCommand dataBaseCommand);
+        Account GetAccountByNumber(UInt64 AccountNumber, IDataBaseCommand dataBaseCommand);
     }
 }

@@ -12,6 +12,6 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         void Add(PlanSegment t, DBAdapter.IDataBaseCommand dbCommand);
         void UpdatePlanSegmentWithPayment(List<PlanSegment> planSegments, DBAdapter.IDataBaseCommand dbCommand);
 
-        List<PlanSegment> Get(Guid AccountId, string t);
+        List<PlanSegment> Get(Guid AccountId, DBAdapter.IDataBaseCommand dbCommand);
     }
 }

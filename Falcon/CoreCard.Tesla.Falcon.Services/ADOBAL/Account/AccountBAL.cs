@@ -188,15 +188,18 @@ namespace CoreCard.Tesla.Falcon.Services
            return  _adoaccountRepository.UpdatePurchase(t);
         }
 
+        public Account GetAccountByNumber_ADO(UInt64 AccountNumber, DBAdapter.IDataBaseCommand dbCommand)
+        {
+            return _adoaccountRepository.GetAccountByNumber(AccountNumber, dbCommand);
+        }
         public Account UpdatePurchase(Account t, DBAdapter.IDataBaseCommand dbCommand)
         {
             return _adoaccountRepository.UpdatePurchase(t, dbCommand);
         }
-        public Account UpdateAccountWithPayment(Account t, DBAdapter.IDataBaseCommand dbCommand)
+        public void UpdateAccountWithPayment(Account t, DBAdapter.IDataBaseCommand dbCommand)
         {
-            return _adoaccountRepository.UpdateAccountWithPayment(t, dbCommand);
+            _adoaccountRepository.UpdateAccountWithPayment(t, dbCommand);
         }
-
         public Account GetAccountByID_ADO(Guid id, IDataBaseCommand dbCommand)
         {
             return _adoaccountRepository.GetAccountByID(id, dbCommand);

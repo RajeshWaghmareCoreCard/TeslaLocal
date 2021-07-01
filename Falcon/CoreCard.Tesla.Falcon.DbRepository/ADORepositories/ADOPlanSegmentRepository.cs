@@ -63,21 +63,18 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             }
             return acc;
         }
-        public List<PlanSegment> Get(Guid id, string idType)
+        public List<PlanSegment> Get(Guid id, DBAdapter.IDataBaseCommand dbCommand)
         {
-            string sql = "SELECT * FROM plansegment where planid ='" + id + "'";
-            if (idType.ToLower().Equals("account"))
-            {
-                sql = "SELECT * FROM plansegment where accountid ='" + id + "'";
-            }
-            DataSet ds = _dbCommand.GetDataSet(sql);
+            StringBuilder strQry = new StringBuilder();
+            strQry.Append("SELECT planid, ifnull(accountid,'00000000-0000-0000-0000-000000000000') as accountid");
+            strQry.Append(", ifnull(plantype,0) as plantype, CreationTime,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount");
+            strQry.Append(", ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount");
+            strQry.Append(" ,ifnull(paymentamount,0)as paymentamount ");
+            strQry.Append(" FROM plansegment where accountid ='" + id.ToString() + "' for update;");
+            List<PlanSegment> ps = new List<PlanSegment>();
+            ps = dbCommand.ExecuteDatareader<PlanSegment>(strQry.ToString());
 
-            List<PlanSegment> acc = new List<PlanSegment>();
-            foreach (DataRow dataRow in ds.Tables[0].Rows)
-            {
-                acc.Add((PlanSegment)dataRow);
-            }
-            return acc;
+            return ps;
         }
 
         public List<PlanSegment> GetAll()

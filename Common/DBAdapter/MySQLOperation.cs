@@ -5,6 +5,7 @@ using System.Data;
 using System.Collections.Generic;
 
 using MySql.Data.MySqlClient;
+using System.Threading.Tasks;
 
 namespace DBAdapter
 {
@@ -1641,6 +1642,32 @@ namespace DBAdapter
         }
 
         public List<T> ExecuteDatareader<T>(string SqlQuery) where T : new()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<object> BeginTransactionAsync()
+        {
+            if (IsDBConnectionOpen() == false)
+            {
+                OpenDBConnection();
+            }
+            return await this._mySqlConn.BeginTransactionAsync();
+        }
+
+        public async Task CommitTransactionAsync(object tran)
+        {
+            MySqlTransaction tranObj = (MySqlTransaction)tran;
+            await tranObj.CommitAsync();
+        }
+
+        public async Task RollbackTransactionAsync(object tran)
+        {
+            MySqlTransaction tranObj = (MySqlTransaction)tran;
+            await tranObj.RollbackAsync();
+        }
+
+        public async Task<List<T>> ExecuteDatareaderAsync<T>(string SqlQuery) where T : new()
         {
             throw new NotImplementedException();
         }

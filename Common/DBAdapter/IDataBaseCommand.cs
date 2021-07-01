@@ -3,6 +3,7 @@ using System.Collections;
 using System.Text;
 using System.Data;
 using System.Collections.Generic; //for iDictionary
+using System.Threading.Tasks;
 
 namespace DBAdapter
 {
@@ -20,6 +21,10 @@ namespace DBAdapter
         object BeginTransaction();
         void CommitTransaction(object tran);
         void RollbackTransaction(object tran);
+
+        Task<object> BeginTransactionAsync();
+        Task CommitTransactionAsync(object tran);
+        Task RollbackTransactionAsync(object tran);
 
 
         //string GetConnStringData(string connString, bool windowsAuthentication, out string serverName, out string dbName, out string userId, out string password, out string connTimeOut);
@@ -63,6 +68,8 @@ namespace DBAdapter
         bool UpdateBulkDataForAll(DataSet dataSet, DataTable dtDelete = null);
 
         public List<T> ExecuteDatareader<T>(string SqlQuery) where T : new();
+
+        Task<List<T>> ExecuteDatareaderAsync<T>(string SqlQuery) where T : new();
 
     }
 }

@@ -131,7 +131,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             throw new NotImplementedException();
         }
 
-        public Account UpdateAccountWithPayment(Account t, IDataBaseCommand dbCommand)
+        public void UpdateAccountWithPayment(Account t, IDataBaseCommand dbCommand)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("update account set ");
@@ -139,19 +139,13 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             sb.Append(string.Format("paymentamount = {0}, ", t.paymentamount));
             sb.Append(string.Format("paymentcount = {0} ", t.paymentcount));
             sb.Append(" where accountid = '" + t.accountid.ToString() + "';");
-            sb.Append(" select * from account where accountid = '" + t.accountid.ToString() + "';");
-            DataSet ds = _dbCommand.GetDataSet(sb.ToString());
-            Account o = new Account();
-            if (ds != null && ds.Tables.Count > 0)
-            {
-                if (ds.Tables[0].Rows.Count > 0)
-                {
-                    o = (Account)ds.Tables[0].Rows[0];
-                }
-            }
+            //sb.Append(" select * from account where accountid = '" + t.accountid.ToString() + "';");
+            dbCommand.ExecuteNonQuery(sb.ToString());
+            /*Account o = new Account();
+            UInt64 AcnNo = (UInt64)t.accountnumber;
+            o = GetAccountByNumber(AcnNo, dbCommand);
+            return o;*/
 
-            return o;
-       
         }
 
         public Account UpdatePurchase(Account t)
@@ -214,6 +208,20 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             Account acc = new Account();
 
             acc = dataBaseCommand.ExecuteDatareader<Account>("SELECT accountid, accountnumber,ifnull(customerid,'00000000-0000-0000-0000-000000000000') as customerid,creditlimit,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount,ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status FROM Account where accountid ='" + guid + "' for update;").FirstOrDefault();
+
+            return acc;
+        }
+        public Account GetAccountByNumber(UInt64 AccountNumber, IDataBaseCommand dataBaseCommand)
+        {
+            StringBuilder strQry = new StringBuilder();
+            strQry.Append("SELECT accountid, accountnumber,ifnull(customerid,'00000000-0000-0000-0000-000000000000') as customerid");
+            strQry.Append(", creditlimit,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount");
+            strQry.Append(", ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount");
+            strQry.Append(" ,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status ");
+            strQry.Append(" FROM Account where accountnumber =" + AccountNumber.ToString() + " for update;");
+            Account acc = new Account();
+
+            acc = dataBaseCommand.ExecuteDatareader<Account>(strQry.ToString()).FirstOrDefault();
 
             return acc;
         }

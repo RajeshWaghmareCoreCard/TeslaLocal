@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Data.SQLite;
+using System.Threading.Tasks;
 //using Microsoft.Data.Sqlite;
 
 namespace DBAdapter
@@ -1692,5 +1693,31 @@ namespace DBAdapter
         {
             throw new NotImplementedException();
         }
-    }
+
+		public async Task<object> BeginTransactionAsync()
+		{
+			if (IsDBConnectionOpen() == false)
+			{
+				OpenDBConnection();
+			}
+			return await this._sqlConn.BeginTransactionAsync();
+		}
+
+		public async Task CommitTransactionAsync(object tran)
+		{
+			SQLiteTransaction tranObj = (SQLiteTransaction)tran;
+			await tranObj.CommitAsync();
+		}
+
+		public async Task RollbackTransactionAsync(object tran)
+		{
+			SQLiteTransaction tranObj = (SQLiteTransaction)tran;
+			await tranObj.RollbackAsync();
+		}
+
+		public async Task<List<T>> ExecuteDatareaderAsync<T>(string SqlQuery) where T : new()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
