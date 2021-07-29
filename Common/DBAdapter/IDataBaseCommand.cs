@@ -26,6 +26,9 @@ namespace DBAdapter
         Task CommitTransactionAsync(object tran);
         Task RollbackTransactionAsync(object tran);
 
+        Task SavePointAsync(object tran, string savepoint);
+        Task RollbackTransactionAsync(object tran, string savepoint);
+
 
         //string GetConnStringData(string connString, bool windowsAuthentication, out string serverName, out string dbName, out string userId, out string password, out string connTimeOut);
         //string GenerateConnString(bool windowsAuthentication, string serverName, string dbName, string userId, string password, string connTimeOut);
@@ -70,6 +73,8 @@ namespace DBAdapter
         public List<T> ExecuteDatareader<T>(string SqlQuery) where T : new();
 
         Task<List<T>> ExecuteDatareaderAsync<T>(string SqlQuery) where T : new();
+
+
 
     }
 }

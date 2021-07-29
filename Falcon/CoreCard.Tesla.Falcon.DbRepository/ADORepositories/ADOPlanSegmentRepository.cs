@@ -26,7 +26,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public void Add(PlanSegment t, DBAdapter.IDataBaseCommand dbCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            object uuid = dbCommand.ExecuteParameterizedScalarCommand("insert into plansegment(plantype,creationtime,purchaseamount,principal,fees,interest,purchasecount) values (@plantype,@creationtime,@purchaseamount,@principal,@fees,@interest,@purchasecount)  Returning planid;", dic);
+            object uuid = dbCommand.ExecuteParameterizedScalarCommand("insert into plansegment(plantype,accountid,creationtime,purchaseamount,principal,fees,interest,purchasecount) values (@plantype,@accountid,@creationtime,@purchaseamount,@principal,@fees,@interest,@purchasecount)  Returning planid;", dic);
         }
 
 

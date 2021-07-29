@@ -103,6 +103,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public void Insert (APILog t)
         {
             IDictionary<string, object> dic = t.ToDictionary();
+            OpenConnection();
             _dbCommand.ExecuteParameterizedNonQuery("insert into apilog(apiname,logtime,response) values (@apiname,@logtime,@response)", dic);
         }
     }

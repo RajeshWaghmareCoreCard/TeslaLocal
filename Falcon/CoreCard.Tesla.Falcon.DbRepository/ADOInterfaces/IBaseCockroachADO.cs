@@ -9,11 +9,18 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 {
     public interface IBaseCockroachADO
     {
-        Tuple<IDataBaseCommand,object> BeginTransaction();
+        Tuple<IDataBaseCommand, object> BeginTransaction();
         void CommitTransaction(IDataBaseCommand dbcommand, object tran);
         void RollbackTransaction(IDataBaseCommand dbcommand, object tran);
+
         Task<Tuple<IDataBaseCommand, object>> BeginTransactionAsync();
         Task CommitTransactionAsync(IDataBaseCommand dbcommand, object tran);
         Task RollbackTransactionAsync(IDataBaseCommand dbcommand, object tran);
+
+        Task SavePointAsync(IDataBaseCommand dbcommand, object tran, string savepoint);
+        Task RollbackTransactionAsync(IDataBaseCommand dbcommand, object tran, string savepoint);
+
+        bool OpenConnection();
+        bool CloseConnection();
     }
 }

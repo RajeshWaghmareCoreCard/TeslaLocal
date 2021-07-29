@@ -8,5 +8,8 @@ namespace CoreCard.Tesla.Falcon.Services
     {
         //Task<BaseResponseDTO> AddPaymentAsync(PaymentAddDTO paymentaddDTO);
         Task<BaseResponseDTO> AddPaymentADOAsync(PaymentAddDTO paymentaddDTO);
+        BaseResponseDTO CheckDBConnection();
+
+        Task<string> CheckDBTransaction();
     }
 }

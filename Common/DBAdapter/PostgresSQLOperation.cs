@@ -424,6 +424,9 @@ namespace DBAdapter
         public int ExecuteNonQuery(string sqlQuery)
         {
             int rowAffected = 0;
+            //lock (lockobject)
+            //{
+
             int retryCount = 0;
 
             do
@@ -445,7 +448,11 @@ namespace DBAdapter
                     command = null;
                     break;
                 }
-                catch (Exception ex)
+                //catch (NpgsqlException ex)
+                //{
+                //    throw ex;
+                //}
+                catch (Exception e)
                 {
                     if (this._autoCloseDBConn)
 
@@ -454,6 +461,10 @@ namespace DBAdapter
                         retryCount = +1;
                         if (retryCount > 5)
                             throw;
+                    }
+                    else
+                    {
+                        throw e;
                     }
                 }
                 finally
@@ -465,6 +476,7 @@ namespace DBAdapter
                 }
 
             } while (retryCount <= 5);
+            // }
             return rowAffected;
 
 
@@ -1503,68 +1515,120 @@ namespace DBAdapter
             tranObj.Rollback();
         }
 
-        public  List<T> ExecuteDatareader<T>(string SqlQuery) where T :new()
+        private readonly object lockobject = new object();
+        //public List<T> ExecuteDatareader<T>(string SqlQuery) where T : new()
+        //{
+        //    aw ExecuteDatareaderAsync<T>(SqlQuery);
+        //}
+        public List<T> ExecuteDatareader<T>(string SqlQuery) where T : new()
         {
-            Type businessEntityType = typeof(T);
             List<T> entitys = new List<T>();
-            try
-            {
-                
-                Hashtable hashtable = new Hashtable();
-                PropertyInfo[] properties = businessEntityType.GetProperties();
-                foreach (PropertyInfo info in properties)
-                {
-                    hashtable[info.Name.ToUpper()] = info;
-                }
-                if (IsDBConnectionOpen() == false)
-                {
-                    OpenDBConnection();
-                }
-                NpgsqlCommand sqlCom = new NpgsqlCommand();
-                sqlCom.Connection = this._sqlConn;
-                sqlCom.CommandType = CommandType.Text;
-                sqlCom.CommandText = SqlQuery;
-                sqlCom.CommandTimeout = this._sqlConn.ConnectionTimeout;
-                //NpgsqlDataReader dr;
-                //sqlDR = sqlCom.ExecuteReader();
-                using (NpgsqlDataReader dr = sqlCom.ExecuteReader())
-                {
-                    while (dr.Read())
-                    {
-                        T newObject = new T();
-                        for (int index = 0; index < dr.FieldCount; index++)
-                        {
-                            PropertyInfo info = (PropertyInfo)
-                                                hashtable[dr.GetName(index).ToUpper()];
-                            if ((info != null) && info.CanWrite)
-                            {
-                                Type propertyType = info.PropertyType;
-                                var targetType = IsNullableType(propertyType) ? Nullable.GetUnderlyingType(propertyType) : propertyType;
+            //lock (lockobject)
+            //{
+            Type businessEntityType = typeof(T);
 
-                                //Returns an System.Object with the specified System.Type and whose value is
-                                //equivalent to the specified object.
-                                var propertyVal = dr.GetValue(index);
-                                propertyVal= Convert.ChangeType(propertyVal, targetType);
-                                info.SetValue(newObject, propertyVal, null);
+            int retryCount = 0;
+            do
+            {
+                try
+                {
+
+                    Hashtable hashtable = new Hashtable();
+                    PropertyInfo[] properties = businessEntityType.GetProperties();
+                    foreach (PropertyInfo info in properties)
+                    {
+                        hashtable[info.Name.ToUpper()] = info;
+                    }
+                    if (IsDBConnectionOpen() == false)
+                    {
+                        OpenDBConnection();
+                    }
+                    NpgsqlCommand sqlCom = new NpgsqlCommand();
+                    sqlCom.Connection = this._sqlConn;
+                    sqlCom.CommandType = CommandType.Text;
+                    sqlCom.CommandText = SqlQuery;
+
+                    sqlCom.CommandTimeout = 300;// this._sqlConn.ConnectionTimeout;
+                                                //NpgsqlDataReader dr;
+                                                //sqlDR = sqlCom.ExecuteReader();
+                    using (NpgsqlDataReader dr = sqlCom.ExecuteReader())
+                    {
+
+                        while (dr.Read())
+                        {
+                            T newObject = new T();
+                            for (int index = 0; index < dr.FieldCount; index++)
+                            {
+                                PropertyInfo info = (PropertyInfo)
+                                                    hashtable[dr.GetName(index).ToUpper()];
+                                if ((info != null) && info.CanWrite)
+                                {
+                                    Type propertyType = info.PropertyType;
+                                    var targetType = IsNullableType(propertyType) ? Nullable.GetUnderlyingType(propertyType) : propertyType;
+
+                                    //Returns an System.Object with the specified System.Type and whose value is
+                                    //equivalent to the specified object.
+                                    var propertyVal = dr.GetValue(index);
+                                    propertyVal = Convert.ChangeType(propertyVal, targetType);
+                                    info.SetValue(newObject, propertyVal, null);
+                                }
+                            }
+                            entitys.Add(newObject);
+                        }
+                    }
+                    return entitys; // dr.Close();
+                }
+                catch (TimeoutException ex)
+                {
+
+                    if (retryCount <= 5)
+                    {
+                        //Thread.Sleep(50);
+                        for (int i = 0; i <= 10000; i++)
+                        {
+                            //waiting for loop;
+                        }
+                    }
+                    else
+                        throw ex;
+                    retryCount++;
+                }
+                catch (Exception ex)
+                {
+
+                    if (ex.Message.Trim().ToLower() == "exception while reading from stream")
+                    {
+                        if (retryCount <= 5)
+                        {
+                            for (int i = 0; i <= 10000; i++)
+                            {
+                                //waiting for loop;
                             }
                         }
-                        entitys.Add(newObject);
+                        else
+                        {
+                            retryCount = -1;
+                            throw ex;
+                        }
+                    }
+                    else
+                    {
+                        retryCount = -1;
+                        throw ex;
+                    }
+                    retryCount++;
+                    //Thread.Sleep(1000);
+                }
+                finally
+                {
+
+                    if (this._autoCloseDBConn)
+                    {
+                        CloseDBConnection();
                     }
                 }
-               // dr.Close();
-            }
-            catch (Exception)
-            {
-                    throw;
-            }
-            finally
-            {
-                if (this._autoCloseDBConn)
-                {
-                    CloseDBConnection();
-                }
-            }
-
+                //}
+            } while (retryCount > 0 && retryCount <= 5);
             return entitys;
         }
 
@@ -1584,19 +1648,145 @@ namespace DBAdapter
 
         public async Task CommitTransactionAsync(object tran)
         {
-            NpgsqlTransaction tranObj = (NpgsqlTransaction)tran;
-            await tranObj.CommitAsync();
+            if (IsDBConnectionOpen())
+            {
+                NpgsqlTransaction tranObj = (NpgsqlTransaction)tran;
+                await tranObj.CommitAsync();
+            }
         }
 
         public async Task RollbackTransactionAsync(object tran)
         {
-            NpgsqlTransaction tranObj = (NpgsqlTransaction)tran;
-            await tranObj.RollbackAsync();
+            if (IsDBConnectionOpen())
+            {
+                NpgsqlTransaction tranObj = (NpgsqlTransaction)tran;
+                await tranObj.RollbackAsync();
+            }
         }
 
         public async Task<List<T>> ExecuteDatareaderAsync<T>(string SqlQuery) where T : new()
         {
-            throw new NotImplementedException();
+            List<T> entitys = new List<T>();
+            //lock (lockobject)
+            //{
+            Type businessEntityType = typeof(T);
+
+            int retryCount = 0;
+            do
+            {
+                try
+                {
+
+                    Hashtable hashtable = new Hashtable();
+                    PropertyInfo[] properties = businessEntityType.GetProperties();
+                    foreach (PropertyInfo info in properties)
+                    {
+                        hashtable[info.Name.ToUpper()] = info;
+                    }
+                    if (IsDBConnectionOpen() == false)
+                    {
+                        OpenDBConnection();
+                    }
+                    NpgsqlCommand sqlCom = new NpgsqlCommand();
+                    sqlCom.Connection = this._sqlConn;
+                    sqlCom.CommandType = CommandType.Text;
+                    sqlCom.CommandText = SqlQuery;
+
+                    sqlCom.CommandTimeout = 300;// this._sqlConn.ConnectionTimeout;
+                                                //NpgsqlDataReader dr;
+                                                //sqlDR = sqlCom.ExecuteReader();
+                    using (NpgsqlDataReader dr = await sqlCom.ExecuteReaderAsync())
+                    {
+
+                        while (await dr.ReadAsync())
+                        {
+                            T newObject = new T();
+                            for (int index = 0; index < dr.FieldCount; index++)
+                            {
+                                PropertyInfo info = (PropertyInfo)
+                                                    hashtable[dr.GetName(index).ToUpper()];
+                                if ((info != null) && info.CanWrite)
+                                {
+                                    Type propertyType = info.PropertyType;
+                                    var targetType = IsNullableType(propertyType) ? Nullable.GetUnderlyingType(propertyType) : propertyType;
+
+                                    //Returns an System.Object with the specified System.Type and whose value is
+                                    //equivalent to the specified object.
+                                    var propertyVal = dr.GetValue(index);
+                                    propertyVal = Convert.ChangeType(propertyVal, targetType);
+                                    info.SetValue(newObject, propertyVal, null);
+                                }
+                            }
+                            entitys.Add(newObject);
+                        }
+                    }
+                    return entitys; // dr.Close();
+                }
+                catch (TimeoutException ex)
+                {
+
+                    if (retryCount <= 5)
+                    {
+                        //Thread.Sleep(50);
+                        await Task.Delay(50);
+                    }
+                    else
+                        throw ex;
+                    retryCount++;
+                }
+                catch (Exception ex)
+                {
+
+                    if (ex.Message.Trim().ToLower() == "exception while reading from stream")
+                    {
+                        if (retryCount <= 5)
+                        {
+                            //Thread.Sleep(50);
+                            await Task.Delay(50);
+                        }
+                        else
+                        {
+                            retryCount = -1;
+                            throw ex;
+                        }
+                    }
+                    else
+                    {
+                        retryCount = -1;
+                        throw ex;
+                    }
+                    retryCount++;
+                    //Thread.Sleep(1000);
+                }
+                finally
+                {
+
+                    if (this._autoCloseDBConn)
+                    {
+                        CloseDBConnection();
+                    }
+                }
+                //}
+            } while (retryCount > 0 && retryCount <= 5);
+            return entitys;
+        }
+
+        public async Task SavePointAsync(object tran, string savepoint)
+        {
+            if (IsDBConnectionOpen())
+            {
+                NpgsqlTransaction tranObj = (NpgsqlTransaction)tran;
+                await tranObj.SaveAsync(savepoint);
+            }
+        }
+
+        public async Task RollbackTransactionAsync(object tran, string savepoint)
+        {
+            if (IsDBConnectionOpen())
+            {
+                NpgsqlTransaction tranObj = (NpgsqlTransaction)tran;
+                await tranObj.RollbackAsync(savepoint);
+            }
         }
     }
 }

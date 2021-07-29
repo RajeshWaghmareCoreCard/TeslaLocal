@@ -1622,5 +1622,15 @@ namespace DBAdapter
         {
             throw new NotImplementedException();
         }
+
+        public Task SavePointAsync(object tran, string savepoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RollbackTransactionAsync(object tran, string savepoint)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

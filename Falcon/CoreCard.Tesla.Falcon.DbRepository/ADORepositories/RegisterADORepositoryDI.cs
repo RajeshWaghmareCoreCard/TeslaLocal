@@ -12,18 +12,19 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public static IServiceCollection RegisterADORepositoryDI(this IServiceCollection serviceCollection)
         {
 
-            serviceCollection.AddScoped<IADOAccountRepository, ADOAccountRepository>();
-            serviceCollection.AddScoped<IADOTransactionRepository, ADOTransactionRepository>();
-            serviceCollection.AddScoped<IADOEmbossingRepository, ADOEmbossingRepository>();
-            serviceCollection.AddScoped<IADOPlansegmentRepository, ADOPlanSegmentRepository>();
-            serviceCollection.AddScoped<IADOCBLogRepository, ADOCBLogRepository>();
-            serviceCollection.AddScoped<IADOLogArTxnRepository, ADOLogArTxnRepository>();
-            serviceCollection.AddScoped<IADOTranInAcctRepository, ADOTranInAcctRepository>();
-            serviceCollection.AddScoped<IADOLoyaltyPlanRepository, ADOLoyaltyPlanRepository>();
-            serviceCollection.AddScoped<IBaseCockroachADO, BaseCockroachADO>();
-            serviceCollection.AddScoped<IADOCustomerRepository, ADOCustomerRepository>();
-            serviceCollection.AddScoped<IADOAPILogRepository, ADOAPILogRepository>();
-            serviceCollection.AddScoped<IADOAddressRepository, ADOAddressRepository>();
+            serviceCollection.AddTransient<IADOAccountRepository, ADOAccountRepository>();
+            serviceCollection.AddTransient<IADOTransactionRepository, ADOTransactionRepository>();
+            serviceCollection.AddTransient<IADOEmbossingRepository, ADOEmbossingRepository>();
+            serviceCollection.AddTransient<IADOPlansegmentRepository, ADOPlanSegmentRepository>();
+            serviceCollection.AddTransient<IADOCBLogRepository, ADOCBLogRepository>();
+            serviceCollection.AddTransient<IADOLogArTxnRepository, ADOLogArTxnRepository>();
+            serviceCollection.AddTransient<IADOTranInAcctRepository, ADOTranInAcctRepository>();
+            serviceCollection.AddTransient<IADOLoyaltyPlanRepository, ADOLoyaltyPlanRepository>();
+            serviceCollection.AddTransient<IBaseCockroachADO, BaseCockroachADO>();
+            serviceCollection.AddTransient<IADOCustomerRepository, ADOCustomerRepository>();
+            serviceCollection.AddTransient<IADOAPILogRepository, ADOAPILogRepository>();
+            serviceCollection.AddTransient<IADOAddressRepository, ADOAddressRepository>();
+            //serviceCollection.AddTransient<IADOPaymentRepository, ADOPaymentRepository>();
             //serviceCollection.AddScoped<CockroachDb.Repository.ITrans_In_AcctRepository,CockroachDb.Repository.Trans_In_AcctRepository > ();
             return serviceCollection;
         }

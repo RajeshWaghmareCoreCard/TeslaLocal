@@ -39,7 +39,7 @@ namespace DBAdapter
         //    return dbCommand;
         //}
 
-        public static IDataBaseCommand GetDBObject(string dbTyp)
+        public IDataBaseCommand GetDBObject(string dbTyp)
         {
             IDataBaseCommand dbCommand = null;
             switch (dbTyp.ToLower())
