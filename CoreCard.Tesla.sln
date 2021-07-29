@@ -54,6 +54,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DatabaseScript", "DatabaseS
 		..\PlatSVNVersion\BaseCode\CockroachDBAPI\CockroachDbScript.sql = ..\PlatSVNVersion\BaseCode\CockroachDBAPI\CockroachDbScript.sql
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreCard.Tesla.Falcon.NpgRepository", "CoreCard.Tesla.Falcon.NpgRepository\CoreCard.Tesla.Falcon.NpgRepository.csproj", "{F86594C6-827D-4242-AC18-1DD9CED97D31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -292,6 +294,18 @@ Global
 		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Release|x64.Build.0 = Release|Any CPU
 		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B7C03CF-43DE-4A08-B215-7B3A9591E837}.Release|x86.Build.0 = Release|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Debug|x64.Build.0 = Debug|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Debug|x86.Build.0 = Debug|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Release|x64.ActiveCfg = Release|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Release|x64.Build.0 = Release|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Release|x86.ActiveCfg = Release|Any CPU
+		{F86594C6-827D-4242-AC18-1DD9CED97D31}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -316,6 +330,7 @@ Global
 		{60EC2226-B2BB-4127-9114-BE5C3B6351C0} = {E59635CF-5A85-4BDE-8785-DA1F5CFBE063}
 		{23BD2AF0-FEF7-42C8-8A76-85B89DA1E70B} = {0D5C8F7C-3E68-4DA3-9B86-90F65C96574C}
 		{7B7C03CF-43DE-4A08-B215-7B3A9591E837} = {9CB4527D-F905-435E-84DB-E33D93C29269}
+		{F86594C6-827D-4242-AC18-1DD9CED97D31} = {43E428F0-ADC9-11EB-9274-21184D7D39F5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE795AB2-2D39-4306-9122-8FA0F5A96980}

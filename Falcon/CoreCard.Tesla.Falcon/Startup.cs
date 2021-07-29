@@ -1,6 +1,7 @@
 using CoreCard.Telsa.Cache;
 using CoreCard.Tesla.Falcon.ADORepository;
 using CoreCard.Tesla.Falcon.DbRepository.RepoInterfaces;
+using CoreCard.Tesla.Falcon.NpgRepository;
 using CoreCard.Tesla.Falcon.Services;
 using CoreCard.Tesla.Utilities;
 using Microsoft.AspNetCore.Builder;
@@ -55,6 +56,8 @@ namespace CoreCard.Tesla.Falcon
             //Added by Suraj Kovoor
             services.RegisterADORepositoryDI();
             services.RegisterBALDI();
+            services.RegisterNpgDatabase(Configuration.GetConnectionString("CockroachDb"));
+            services.RegisterNpgRepositoryDI();
 
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

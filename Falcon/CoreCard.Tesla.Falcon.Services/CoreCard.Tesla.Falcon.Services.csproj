@@ -2,14 +2,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\DBAdapter\DBAdapter.csproj" />
+    <ProjectReference Include="..\..\CoreCard.Tesla.Falcon.NpgRepository\CoreCard.Tesla.Falcon.NpgRepository.csproj" />
     <ProjectReference Include="..\CoreCard.Tesla.Falcon.DataModels\CoreCard.Tesla.Falcon.DataModels.csproj" />
     <ProjectReference Include="..\CoreCard.Tesla.Falcon.DbRepository\CoreCard.Tesla.Falcon.DbRepository.csproj" />
     <ProjectReference Include="..\CoreCard.Tesla.Falcon.ADC\CoreCard.Tesla.Falcon.Adc.csproj" />
     <ProjectReference Include="..\..\Tokenization\Tesla.TokenizationUtilityProvider\Tesla.TokenizationUtilityProvider.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ADOBAL\" />
   </ItemGroup>
 
   <PropertyGroup>
