@@ -1,12 +1,13 @@
 ﻿using CoreCard.Tesla.Falcon.DataModels.Entity;
 using CoreCard.Tesla.Falcon.DataModels.Model;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoreCard.Tesla.Falcon.NpgRepository.Interface
+namespace CoreCard.Tesla.Falcon.NpgRepository
 {
     public interface IPurchaseUnit
     {
@@ -18,5 +19,6 @@ namespace CoreCard.Tesla.Falcon.NpgRepository.Interface
         //Trans_in_Acct trans_In_Acct { get; set; }
        // PaymentAddDTO paymentaddDTO { get; set; }
         Task<Transaction> MakePayment(PaymentAddDTO paymentAddDTO);
+
     }
 }

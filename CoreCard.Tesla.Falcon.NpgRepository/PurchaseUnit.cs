@@ -1,17 +1,19 @@
 ﻿using CoreCard.Tesla.Falcon.DataModels.Entity;
 using CoreCard.Tesla.Falcon.DataModels.Model;
-using CoreCard.Tesla.Falcon.NpgRepository.Interface;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CoreCard.Tesla.Falcon.NpgRepository
 {
-    public class PurchaseUnit : BaseRepository, IPurchaseUnit
+    public class PurchaseUnit : BaseRepository, IPurchaseUnit, IDisposable
     {
         //public Account Account { get; set; }
         //public Transaction Transaction { get; set; }
@@ -26,9 +28,9 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
         private readonly IADOLogArTxnRepository _logArTxnRepository;
         private readonly IADOCBLogRepository _cblogRepository;
         private readonly IADOTranInAcctRepository _tranInAcctRepository;
-        private readonly ILogger<PurchaseUnit> _logger;
+       // private readonly ILogger<PurchaseUnit> _logger;
         public PurchaseUnit(IDatabaseConnectionResolver databaseConnection, IADOAccountRepository accountRepository, IADOPlansegmentRepository plansegmentRepository,
-            IADOTransactionRepository transactionRepository, IADOLogArTxnRepository logArTxnRepository, IADOCBLogRepository cblogRepository, IADOTranInAcctRepository tranInAcctRepository, ILogger<PurchaseUnit> logger) : base(databaseConnection)
+            IADOTransactionRepository transactionRepository, IADOLogArTxnRepository logArTxnRepository, IADOCBLogRepository cblogRepository, IADOTranInAcctRepository tranInAcctRepository/*, ILogger<PurchaseUnit> logger*/) : base(databaseConnection)
         {
             _accountRepository = accountRepository;
             _plansegmentRepository = plansegmentRepository;
@@ -36,7 +38,12 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
             _tranInAcctRepository = tranInAcctRepository;
             _logArTxnRepository = logArTxnRepository;
             _cblogRepository = cblogRepository;
-            _logger = logger;
+            //_logger = logger;
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
         }
 
         public async Task<Transaction> MakePayment(PaymentAddDTO paymentaddDTO)
@@ -51,6 +58,7 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
                     Guid guid = Guid.NewGuid();
                     string savePointName = "payment_restart_" + guid.ToString();
                     await tran.SaveAsync(savePointName);
+                    int accountNullCount = 0;
                     while (true)
                     {
                         try
@@ -99,7 +107,7 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
 
                                 List<PlanSegment> planSegments = _plansegmentRepository.Get(account.accountid, connection);
 
-                                if (planSegments.Count > 0)
+                                if (planSegments != null && planSegments.Count > 0)
                                 {
                                     Remainingamount = paymentaddDTO.amount;
 
@@ -172,7 +180,7 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
                                 }
 
                                 //Transaction
-                                
+
                                 t.trantime = DateTime.Now;
                                 t.trantype = "21";
                                 t.trancode = 300;
@@ -187,37 +195,49 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
 
                                 //newtran = _transactionRepository.Add(t,)
                                 t.tranid = _transactionRepository.Add(t, connection);
+                                if (t.tranid != Guid.Empty)
+                                {
+                                    LogArTxn logartxn = new LogArTxn();
+                                    logartxn.artype = 1;
+                                    logartxn.tranid = t.tranid;
+                                    logartxn.businessdate = DateTime.Now;
+                                    logartxn.status = "success";
 
-                                LogArTxn logartxn = new LogArTxn();
-                                logartxn.artype = 1;
-                                logartxn.tranid = t.tranid;
-                                logartxn.businessdate = DateTime.Now;
-                                logartxn.status = "success";
-
-                                _logArTxnRepository.Insert(logartxn, connection);
+                                    _logArTxnRepository.Insert(logartxn, connection);
 
 
-                                CBLog cblog = new CBLog();
-                                cblog.tranid = t.tranid;
-                                cblog.accountid = t.accountid;
-                                cblog.tranamount = paymentaddDTO.amount;
-                                cblog.currentbal = account.currentbal;
-                                cblog.posttime = DateTime.Now;
+                                    CBLog cblog = new CBLog();
+                                    cblog.tranid = t.tranid;
+                                    cblog.accountid = t.accountid;
+                                    cblog.tranamount = paymentaddDTO.amount;
+                                    cblog.currentbal = account.currentbal;
+                                    cblog.posttime = DateTime.Now;
 
-                                _cblogRepository.Insert(cblog, connection);
+                                    _cblogRepository.Insert(cblog, connection);
 
-                                Trans_in_Acct tacct = new Trans_in_Acct();
-                                tacct.tranid = t.tranid;
-                                tacct.accountid = account.accountid;
+                                    Trans_in_Acct tacct = new Trans_in_Acct();
+                                    tacct.tranid = t.tranid;
+                                    tacct.accountid = account.accountid;
 
-                                _tranInAcctRepository.Insert(tacct, connection);
-
+                                    _tranInAcctRepository.Insert(tacct, connection);
+                                }
                                 await tran.CommitAsync();
                                 //baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPayment");
 
                                 return t;
 
 
+                            }
+                            else
+                            {
+                                accountNullCount++;
+                                if(accountNullCount >=5)
+                                {
+                                    //_logger.LogError("Account is Null after 5 attempts;");
+                                    //throw new Exception("Account is Null after 5 attempts;");
+                                    t.column1 = "Account is Null after 5 attempts;";
+                                    return t;
+                                }
                             }
                         }
                         catch (NpgsqlException e)
@@ -234,18 +254,18 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
                                     if (tx.Message.Contains("This NpgsqlTransaction has completed"))
                                     {
                                         //baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPayment");
-                                       
+
                                         return t;
                                     }
                                     else
                                     {
-                                        _logger.LogError(tx, "AddPaymentADOAsync");
+                                        //_logger.LogError(tx, "AddPaymentADOAsync");
                                     }
                                 }
                             }
                             else
                             {
-                                _logger.LogError(e, "Error Occured in Purchase Unit");
+                                //_logger.LogError(e, "Error Occured in Purchase Unit");
                                 throw;
                             }
                         }
@@ -255,7 +275,7 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error Occured in Purchase Unit");
+                //_logger.LogError(ex, "Error Occured in Purchase Unit");
                 throw;
             }
         }

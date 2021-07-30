@@ -14,29 +14,30 @@ using Npgsql;
 
 namespace CoreCard.Tesla.Falcon.Services
 {
-    public class PaymentBAL : IPaymentBAL
+    public class PaymentBAL : /*BaseBAL<Transaction>, */IPaymentBAL
     {
 
-        // private readonly ITransactionRepository _transactionRepository;
-        private readonly IADOTransactionRepository _adotransactionRepository;
+        //private readonly ITransactionRepository _transactionRepository;
+        //private readonly IADOTransactionRepository _adotransactionRepository;
         private readonly IAccountBAL _accountBAL;
         private readonly IPlanSegmentBAL _planSegmentBAL;
         private readonly ILogArTxnBAL _logArTxnBAL;
         private readonly ICBLogBAL _cblogBAL;
         private readonly ITransInAcctBAL _traninacct;
-        private readonly TimeLogger _timeLogger;
+        // private readonly TimeLogger _timeLogger;
         private readonly IAPILogBAL _apilogBAL;
         private readonly ITransactionBAL _transactionBAL;
         private int responseTy = 0;
         private Tuple<DBAdapter.IDataBaseCommand, object> newTuple;
         private readonly object lockObject = new object();
         private readonly IBaseCockroachADO _baseCockroachADO;
-        public PaymentBAL(TimeLogger timeLogger, /*ITransactionRepository transactionRepository,*/
-            IAccountBAL accountBAL, IPlanSegmentBAL planSegmentBAL, ILogArTxnBAL logArTxnBAL
+       // private readonly ILogger<PaymentBAL> _logger;
+        public PaymentBAL(/*TimeLogger timeLogger
+           , */IAccountBAL accountBAL, IPlanSegmentBAL planSegmentBAL, ILogArTxnBAL logArTxnBAL
             , ICBLogBAL cblogBAL, ITransInAcctBAL traninacct, IAPILogBAL apilogBAL) //: base(transactionRepository)
         {
-            _timeLogger = timeLogger;
-            // _transactionRepository = transactionRepository;
+            //_timeLogger = timeLogger;
+            //_transactionRepository = transactionRepository;
             _accountBAL = accountBAL;
             _planSegmentBAL = planSegmentBAL;
             _logArTxnBAL = logArTxnBAL;
@@ -45,10 +46,10 @@ namespace CoreCard.Tesla.Falcon.Services
             _apilogBAL = apilogBAL;
 
         }
-        public PaymentBAL(/*TimeLogger timeLogger, ITransactionRepository transactionRepository,*/
-            IBaseCockroachADO baseCockroachADO
+        public PaymentBAL(/*TimeLogger timeLogger
+           , */IBaseCockroachADO baseCockroachADO
            , IAccountBAL accountBAL, IPlanSegmentBAL planSegmentBAL, ILogArTxnBAL logArTxnBAL
-            , ICBLogBAL cblogBAL, ITransInAcctBAL traninacct, IAPILogBAL apilogBAL, ITransactionBAL transactionBAL) //: base(transactionRepository)
+            , ICBLogBAL cblogBAL, ITransInAcctBAL traninacct, IAPILogBAL apilogBAL, ITransactionBAL transactionBAL/*, ILogger<PaymentBAL> logger*/)// : base(transactionRepository)
         {
             //_timeLogger = timeLogger;
             _accountBAL = accountBAL;
@@ -60,6 +61,7 @@ namespace CoreCard.Tesla.Falcon.Services
             _apilogBAL = apilogBAL;
             _baseCockroachADO = baseCockroachADO;
             _transactionBAL = transactionBAL;
+            //_logger = logger;
         }
         public async Task<BaseResponseDTO> AddPaymentADOAsync(PaymentAddDTO paymentaddDTO)
         {
@@ -71,15 +73,16 @@ namespace CoreCard.Tesla.Falcon.Services
             int sqlexp = 0;
             try
             {
+                Guid guid = Guid.NewGuid();
+                string savePointName = "payment_restart_" + guid.ToString();
                 //_timeLogger.Start("AddPayment");
                 while (true)
                 {
-                    if (sqlexp > 0)
-                    {
-                       // _logger.LogInformation("Retry for Account Number : " + paymentaddDTO.accountnumber + " : " + sqlexp);
-                    }
-                    Guid guid = Guid.NewGuid();
-                    string savePointName = "payment_restart_" + guid.ToString();
+                    //if (sqlexp > 0)
+                    //{
+                    //    //_logger.LogInformation("Retry for Account Number : " + paymentaddDTO.accountnumber + " : " + sqlexp);
+                    //}
+
                     try
                     {
 
@@ -317,7 +320,7 @@ namespace CoreCard.Tesla.Falcon.Services
             }
             catch (Exception ex)
             {
-               // _logger.LogError(ex, "AddPaymentADOAsync");
+                //_logger.LogError(ex, "AddPaymentADOAsync");
                 await _baseCockroachADO.RollbackTransactionAsync(newTuple.Item1, newTuple.Item2);
 
 
@@ -396,6 +399,201 @@ namespace CoreCard.Tesla.Falcon.Services
             //baseResponseDTO.BaseEntityInstance = "Result{'Message':'API Responded Successfully'}";
             return message;
         }
+
+        //public async Task<BaseResponseDTO> AddPaymentAsync(PaymentAddDTO paymentaddDTO)
+        //{
+        //    BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
+        //    Boolean isOk = true;
+        //    String errorMsg = "";
+        //    try
+        //    {
+        //        _timeLogger.Start("AddPayment");
+        //        Transaction t = new Transaction();
+        //        Transaction newtran = new Transaction();
+        //        // Validation
+        //        if (paymentaddDTO.amount <= 0) { isOk = false; errorMsg = "Payment Amount is Zero!"; }
+        //        if (isOk)
+        //        {
+        //            Account account = await _accountBAL.GetAccountByNumber(paymentaddDTO.accountnumber);
+        //            if (account == null)
+        //            {
+        //                errorMsg = "Invalid Account No!";
+
+        //            }
+        //            else
+        //            {
+        //                //Account
+        //                List<PlanSegment> planSegments = await _planSegmentBAL.GetPlanSegmentByAccountId(account.accountid);
+
+        //                decimal? Remainingamount = paymentaddDTO.amount;
+
+        //                if (account.fees > 0 & Remainingamount >= account.fees)
+        //                {
+        //                    account.fees = 0;
+        //                    Remainingamount = Remainingamount - account.fees;
+        //                }
+        //                else if (account.fees > 0 & Remainingamount < account.fees)
+        //                {
+        //                    account.fees = account.fees - Remainingamount;
+        //                    Remainingamount = 0;
+        //                }
+
+        //                if (Remainingamount > 0 & account.interest > 0 & Remainingamount >= account.interest)
+        //                {
+        //                    account.interest = 0;
+        //                    Remainingamount = Remainingamount - account.interest;
+        //                }
+        //                else if (Remainingamount > 0 & account.interest > 0 & Remainingamount < account.interest)
+        //                {
+        //                    account.interest = account.interest - Remainingamount;
+        //                    Remainingamount = 0;
+        //                }
+
+        //                if (Remainingamount > 0)
+        //                {
+        //                    account.principal = account.principal - Remainingamount;
+        //                    Remainingamount = 0;
+        //                }
+
+
+        //                account.currentbal = account.currentbal - paymentaddDTO.amount;
+        //                account.paymentamount = paymentaddDTO.amount;
+        //                account.paymentcount = account.paymentcount + 1;
+
+        //                await _accountBAL.UpdateAsync(account, account.accountid);
+
+        //                //Plansegment
+
+
+
+        //                Remainingamount = paymentaddDTO.amount;
+
+        //                //Fees--
+        //                foreach (PlanSegment p in planSegments)
+        //                {
+        //                    if (p.fees > 0 & Remainingamount <= p.fees)
+        //                    {
+        //                        p.fees = p.fees - Remainingamount;
+        //                        Remainingamount = 0;
+        //                    }
+        //                    else if (p.fees > 0 & Remainingamount > p.fees)
+        //                    {
+        //                        decimal? oldFees = p.fees;
+        //                        p.fees = 0;
+        //                        Remainingamount = Remainingamount - oldFees;
+        //                    }
+
+        //                    if (Remainingamount == 0) { break; }
+        //                }
+        //                //Interest
+        //                if (Remainingamount > 0)
+        //                {
+        //                    foreach (PlanSegment p in planSegments)
+        //                    {
+        //                        if (p.interest > 0 & Remainingamount <= p.interest)
+        //                        {
+        //                            p.interest = p.interest - Remainingamount;
+        //                            Remainingamount = 0;
+        //                        }
+        //                        else if (p.interest > 0 & Remainingamount > p.interest)
+        //                        {
+        //                            decimal? oldInt = p.interest;
+        //                            p.interest = 0;
+        //                            Remainingamount = Remainingamount - oldInt;
+        //                        }
+
+        //                        if (Remainingamount == 0) { break; }
+        //                    }
+        //                }
+        //                //Principal-1
+        //                if (Remainingamount > 0)
+        //                {
+        //                    foreach (PlanSegment p in planSegments)
+        //                    {
+        //                        if (p.principal > 0 & Remainingamount <= p.principal)
+        //                        {
+        //                            p.principal = p.principal - Remainingamount;
+        //                            Remainingamount = 0;
+        //                        }
+        //                        else if (p.principal > 0 & Remainingamount > p.principal)
+        //                        {
+        //                            decimal? oldPri = p.principal;
+        //                            p.principal = 0;
+        //                            Remainingamount = Remainingamount - oldPri;
+        //                        }
+
+        //                        if (Remainingamount == 0) { break; }
+        //                    }
+        //                }
+
+        //                //Principla-2
+
+        //                if (Remainingamount > 0)
+        //                {
+        //                    int idxLast = planSegments.Count - 1;
+        //                    planSegments[idxLast].principal = planSegments[idxLast].principal - Remainingamount;
+        //                }
+        //                foreach (PlanSegment p in planSegments)
+        //                {
+        //                    await _planSegmentBAL.UpdateAsync(p, p.planid);
+        //                }
+
+        //                //Transaction
+        //                t.trantime = DateTime.Now;
+        //                t.trantype = "21";
+        //                t.trancode = 300;
+        //                t.accountid = account.accountid;
+        //                t.amount = paymentaddDTO.amount;
+
+
+
+        //                newtran = await _transactionRepository.AddAsync(t);
+
+        //                await _logArTxnBAL.AddLogArTxnAsync(newtran.tranid);
+        //                await _cblogBAL.AddCBLogAsync(newtran.tranid, account.accountid, paymentaddDTO.amount, account.currentbal);
+        //                await _traninacct.AddTansInAcctAsync(newtran.tranid, account.accountid);
+        //                await _transactionRepository.SaveAsync();
+        //            }
+        //        }
+
+        //        baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPayment");
+
+
+
+        //        if (errorMsg != "")
+        //        {
+        //            throw new Exception(errorMsg);
+        //        }
+        //        baseResponseDTO.BaseEntityInstance = newtran;
+        //        return baseResponseDTO;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _transactionRepository.RejectChanges();
+        //        responseTy = -1;
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        // APILog
+        //        APILog aPILog = new APILog();
+        //        //aPILog.logid = Guid.NewGuid();
+        //        aPILog.apiname = "Payment";
+        //        aPILog.logtime = DateTime.UtcNow;
+        //        aPILog.response = responseTy;
+        //        _apilogBAL.Add(aPILog);
+        //        _transactionRepository.Save();
+        //    }
+
+
+        //    /*Customer customer = CustomerAddDTO.MapToCustomer(paymentaddDTO);
+        //    //customer.customerid = Guid.NewGuid();
+        //    customer.ssn = SSNGenerator.GenerateSSN();
+        //    Customer newCustomer = await _customerRepository.AddAsync(customer);
+        //    await _addressBAL.AddAddressAsync(paymentaddDTO.CustomerAddress, newCustomer.customerid);
+        //    return newCustomer;*/
+        //    //return new Transaction();
+        //}
 
     }
 }

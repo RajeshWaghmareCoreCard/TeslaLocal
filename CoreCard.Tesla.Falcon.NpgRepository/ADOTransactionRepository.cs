@@ -1,5 +1,4 @@
 ﻿using CoreCard.Tesla.Falcon.DataModels.Entity;
-
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
@@ -25,11 +24,11 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
             {
                 if (connection.State == ConnectionState.Open)
                 {
-                    using (var cmd = new NpgsqlCommand())
+                    using (var cmd = new NpgsqlCommand("insert into transaction(accountid,trantype,trancode,trantime,amount,cardnumber) values (@accountid,@trantype,@trancode,@trantime,@amount,@cardnumber) Returning tranid;",connection))
                     {
-                        cmd.Connection = connection;
+                        //cmd.Connection = connection;
 
-                        cmd.CommandText = "insert into transaction(accountid,trantype,trancode,trantime,amount,cardnumber) values (@accountid,@trantype,@trancode,@trantime,@amount,@cardnumber) Returning tranid;";
+                        //cmd.CommandText = "insert into transaction(accountid,trantype,trancode,trantime,amount,cardnumber) values (@accountid,@trantype,@trancode,@trantime,@amount,@cardnumber) Returning tranid;";
                         cmd.Parameters.AddWithValue("accountid", t.accountid);
                         cmd.Parameters.AddWithValue("trantype", t.trantype);
                         cmd.Parameters.AddWithValue("trancode", t.trancode);

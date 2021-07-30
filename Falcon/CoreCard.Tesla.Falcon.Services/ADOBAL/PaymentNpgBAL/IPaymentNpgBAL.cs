@@ -11,5 +11,8 @@ namespace CoreCard.Tesla.Falcon.Services
     public interface IPaymentNpgBAL
     {
         Task<Transaction> DoPayment(PaymentAddDTO paymentAddDTO);
+        BaseResponseDTO CheckDBConnection();
+
+        Task<string> CheckDBTransaction();
     }
 }

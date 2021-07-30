@@ -1,5 +1,4 @@
-﻿using CoreCard.Tesla.Falcon.NpgRepository.Interface;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;

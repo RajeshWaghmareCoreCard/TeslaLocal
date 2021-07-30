@@ -1,5 +1,4 @@
 ﻿using CoreCard.Tesla.Falcon.DataModels.Entity;
-
 using Microsoft.Extensions.Configuration;
 using Npgsql;
 using System;
@@ -24,11 +23,8 @@ namespace CoreCard.Tesla.Falcon.NpgRepository
             try
             {
                 if (connection.State == ConnectionState.Open)
-                    using (var cmd = new NpgsqlCommand())
+                    using (var cmd = new NpgsqlCommand("insert into cblog(accountid,currentbal,tranid,tranamount,posttime) values (@accountid,@currentbal,@tranid,@tranamount,@posttime) ;",connection))
                     {
-                        cmd.Connection = connection;
-
-                        cmd.CommandText = "insert into cblog(accountid,currentbal,tranid,tranamount,posttime) values (@accountid,@currentbal,@tranid,@tranamount,@posttime) ;";
                         cmd.Parameters.AddWithValue("accountid", t.accountid);
                         cmd.Parameters.AddWithValue("currentbal", t.currentbal);
                         cmd.Parameters.AddWithValue("tranid", t.tranid);
