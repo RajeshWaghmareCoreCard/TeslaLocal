@@ -12,7 +12,7 @@ namespace CoreCard.Tesla.Falcon.DataModels.Entity
     {
         //[Key]
         //public Guid id { get; set; }
-
+        public string ccregion { get; set; }
         //public DateTime createddate { get; set; }
 
         //public DateTime modifieddate { get; set; }

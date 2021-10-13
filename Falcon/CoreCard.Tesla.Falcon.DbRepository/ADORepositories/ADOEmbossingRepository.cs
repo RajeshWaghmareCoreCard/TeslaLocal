@@ -12,7 +12,7 @@ using System.Data;
 
 namespace CoreCard.Tesla.Falcon.ADORepository
 {
-    public class ADOEmbossingRepository:BaseCockroachADO,IADOEmbossingRepository
+    public class ADOEmbossingRepository : BaseCockroachADO, IADOEmbossingRepository
     {
         public ADOEmbossingRepository(IConfiguration configuration) : base(configuration)
         {
@@ -62,9 +62,9 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         {
             DataSet ds = _dbCommand.GetDataSet("select * from embossing where cardnumber='" + cardnumber.Trim() + "'");
             Embossing o = new Embossing();
-            if(ds!=null && ds.Tables.Count >0)
+            if (ds != null && ds.Tables.Count > 0)
             {
-                if(ds.Tables[0].Rows.Count >0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     o = (Embossing)ds.Tables[0].Rows[0];
                 }
@@ -120,14 +120,14 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public void Insert(Embossing t, IDataBaseCommand dataBaseCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            dataBaseCommand.ExecuteParameterizedScalarCommand("insert into embossing(accountid,cardtype,cardnumber) values (@accountid,@cardtype,@cardnumber)  Returning accountid;", dic);
+            dataBaseCommand.ExecuteParameterizedScalarCommand("insert into embossing(accountid,cardtype,cardnumber,binnumber,ccregion) values (@accountid,@cardtype,@cardnumber,@binnumber, @ccregion)  Returning accountid;", dic);
         }
 
         public Embossing GetEmbossingByCardNumber(string cardnumber, IDataBaseCommand dataBaseCommand)
         {
             Embossing acc = new Embossing();
 
-            acc = dataBaseCommand.ExecuteDatareader<Embossing>("select embossingid, ifnull(accountid,'00000000-0000-0000-0000-000000000000') as accountid,ifnull(cardtype,0)as cardtype,ifnull(cardnumber,'') as cardnumber from embossing where cardnumber = '" + cardnumber.Trim() + "' for update;").FirstOrDefault();
+            acc = dataBaseCommand.ExecuteDatareader<Embossing>("select embossingid, ifnull(accountid,'00000000-0000-0000-0000-000000000000') as accountid,ifnull(cardtype,0)as cardtype,ifnull(cardnumber,'') as cardnumber , ifnull(binnumber,0) as binnumber, ifnull(ccregion,'') as ccregion from embossing where cardnumber = '" + cardnumber.Trim() + "' for update;").FirstOrDefault();
 
             return acc;
         }

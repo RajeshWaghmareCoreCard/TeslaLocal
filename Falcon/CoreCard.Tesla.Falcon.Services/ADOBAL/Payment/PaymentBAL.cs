@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using CoreCard.Tesla.Falcon.ADORepository;
 using DBAdapter;
 using Npgsql;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCard.Tesla.Falcon.Services
 {
@@ -24,19 +25,19 @@ namespace CoreCard.Tesla.Falcon.Services
         private readonly ILogArTxnBAL _logArTxnBAL;
         private readonly ICBLogBAL _cblogBAL;
         private readonly ITransInAcctBAL _traninacct;
-        // private readonly TimeLogger _timeLogger;
+        private readonly TimeLogger _timeLogger;
         private readonly IAPILogBAL _apilogBAL;
         private readonly ITransactionBAL _transactionBAL;
         private int responseTy = 0;
         private Tuple<DBAdapter.IDataBaseCommand, object> newTuple;
         private readonly object lockObject = new object();
         private readonly IBaseCockroachADO _baseCockroachADO;
-       // private readonly ILogger<PaymentBAL> _logger;
-        public PaymentBAL(/*TimeLogger timeLogger
-           , */IAccountBAL accountBAL, IPlanSegmentBAL planSegmentBAL, ILogArTxnBAL logArTxnBAL
-            , ICBLogBAL cblogBAL, ITransInAcctBAL traninacct, IAPILogBAL apilogBAL) //: base(transactionRepository)
+        private readonly ILogger<PaymentBAL> _logger;
+        public PaymentBAL(TimeLogger timeLogger
+           , IAccountBAL accountBAL, IPlanSegmentBAL planSegmentBAL, ILogArTxnBAL logArTxnBAL
+            , ICBLogBAL cblogBAL, ITransInAcctBAL traninacct, IAPILogBAL apilogBAL, ILogger<PaymentBAL> logger) //: base(transactionRepository)
         {
-            //_timeLogger = timeLogger;
+            _timeLogger = timeLogger;
             //_transactionRepository = transactionRepository;
             _accountBAL = accountBAL;
             _planSegmentBAL = planSegmentBAL;
@@ -44,14 +45,14 @@ namespace CoreCard.Tesla.Falcon.Services
             _cblogBAL = cblogBAL;
             _traninacct = traninacct;
             _apilogBAL = apilogBAL;
-
+            _logger = logger;
         }
-        public PaymentBAL(/*TimeLogger timeLogger
-           , */IBaseCockroachADO baseCockroachADO
+        public PaymentBAL(TimeLogger timeLogger
+           , IBaseCockroachADO baseCockroachADO
            , IAccountBAL accountBAL, IPlanSegmentBAL planSegmentBAL, ILogArTxnBAL logArTxnBAL
-            , ICBLogBAL cblogBAL, ITransInAcctBAL traninacct, IAPILogBAL apilogBAL, ITransactionBAL transactionBAL/*, ILogger<PaymentBAL> logger*/)// : base(transactionRepository)
+            , ICBLogBAL cblogBAL, ITransInAcctBAL traninacct, IAPILogBAL apilogBAL, ITransactionBAL transactionBAL, ILogger<PaymentBAL> logger)// : base(transactionRepository)
         {
-            //_timeLogger = timeLogger;
+            _timeLogger = timeLogger;
             _accountBAL = accountBAL;
             // _transactionRepository = transactionRepository;
             _planSegmentBAL = planSegmentBAL;
@@ -61,27 +62,31 @@ namespace CoreCard.Tesla.Falcon.Services
             _apilogBAL = apilogBAL;
             _baseCockroachADO = baseCockroachADO;
             _transactionBAL = transactionBAL;
-            //_logger = logger;
+            _logger = logger;
         }
         public async Task<BaseResponseDTO> AddPaymentADOAsync(PaymentAddDTO paymentaddDTO)
         {
+            _timeLogger.Start("AddPayment");
             BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
             Boolean isOk = true;
             Transaction t = new Transaction();
+            _timeLogger.Start("BeginTransactionAsync");
             newTuple = await _baseCockroachADO.BeginTransactionAsync();
+            _timeLogger.StopAndLog("BeginTransactionAsync");
             int retry = 0;
             int sqlexp = 0;
+            //string ccregion = "UNKNOWN-PAYMENT-REGION";
             try
             {
                 Guid guid = Guid.NewGuid();
                 string savePointName = "payment_restart_" + guid.ToString();
-                //_timeLogger.Start("AddPayment");
+
                 while (true)
                 {
-                    //if (sqlexp > 0)
-                    //{
-                    //    //_logger.LogInformation("Retry for Account Number : " + paymentaddDTO.accountnumber + " : " + sqlexp);
-                    //}
+                    if (sqlexp > 0)
+                    {
+                        _logger.LogInformation("Retry for Account Number : " + paymentaddDTO.accountnumber + " : " + sqlexp);
+                    }
 
                     try
                     {
@@ -91,8 +96,15 @@ namespace CoreCard.Tesla.Falcon.Services
                         if (paymentaddDTO.amount <= 0) { isOk = false; }
                         if (isOk)
                         {
+                            _timeLogger.Start("SavePointAsync");
                             await _baseCockroachADO.SavePointAsync(newTuple.Item1, newTuple.Item2, savePointName);
+                            _timeLogger.StopAndLog("SavePointAsync");
+
+                            _timeLogger.Start("GetAccountByNumber_ADO");
                             Account account = _accountBAL.GetAccountByNumber_ADO(paymentaddDTO.accountnumber, newTuple.Item1);
+                            //ccregion = account.ccregion;
+                            _timeLogger.StopAndLog("GetAccountByNumber_ADO");
+
                             if (account != null)
                             {
                                 //Account
@@ -134,7 +146,9 @@ namespace CoreCard.Tesla.Falcon.Services
 
                                 //Plansegment
 
+                                _timeLogger.Start("GetPlanSegmentsByAccountID_ADO");
                                 List<PlanSegment> planSegments = _planSegmentBAL.GetPlanSegmentsByAccountID_ADO(account.accountid, newTuple.Item1);
+                                _timeLogger.StopAndLog("GetPlanSegmentsByAccountID_ADO");
 
                                 if (planSegments.Count > 0)
                                 {
@@ -143,6 +157,7 @@ namespace CoreCard.Tesla.Falcon.Services
                                     //Fees--
                                     foreach (PlanSegment p in planSegments)
                                     {
+                                        p.ccregion = account.ccregion;
                                         if (p.fees > 0 & Remainingamount <= p.fees)
                                         {
                                             p.fees = p.fees - Remainingamount;
@@ -215,23 +230,32 @@ namespace CoreCard.Tesla.Falcon.Services
                                 t.accountid = account.accountid;
                                 t.amount = paymentaddDTO.amount;
                                 t.cardnumber = "";
+                                t.ccregion = account.ccregion;
                                 //Starting Transations
                                 //Account updatedAccount = new Account();
-
+                                _timeLogger.Start("UpdateAccountWithPayment");
                                 _accountBAL.UpdateAccountWithPayment(account, newTuple.Item1);
+                                _timeLogger.StopAndLog("UpdateAccountWithPayment");
+
+                                _timeLogger.Start("UpdatePlanSegmentWithPayment");
                                 _planSegmentBAL.UpdatePlanSegmentWithPayment(planSegments, newTuple.Item1);
+                                _timeLogger.StopAndLog("UpdatePlanSegmentWithPayment");
 
                                 //newtran = _transactionRepository.Add(t,)
+                                _timeLogger.Start("AddTransactionADO");
                                 t.tranid = _transactionBAL.AddTransactionADO(t, newTuple.Item1);
+                                _timeLogger.StopAndLog("AddTransactionADO");
 
                                 LogArTxn logartxn = new LogArTxn();
                                 logartxn.artype = 1;
                                 logartxn.tranid = t.tranid;
                                 logartxn.businessdate = DateTime.Now;
                                 logartxn.status = "success";
+                                logartxn.ccregion = account.ccregion;
 
+                                _timeLogger.Start("LogARTxnInsert");
                                 _logArTxnBAL.Insert(logartxn, newTuple.Item1);
-
+                                _timeLogger.StopAndLog("LogARTxnInsert");
 
                                 CBLog cblog = new CBLog();
                                 cblog.tranid = t.tranid;
@@ -239,17 +263,23 @@ namespace CoreCard.Tesla.Falcon.Services
                                 cblog.tranamount = paymentaddDTO.amount;
                                 cblog.currentbal = account.currentbal;
                                 cblog.posttime = DateTime.Now;
+                                cblog.ccregion = account.ccregion;
 
+                                _timeLogger.Start("CBLogInsert");
                                 _cblogBAL.Insert(cblog, newTuple.Item1);
+                                _timeLogger.StopAndLog("CBLogInsert");
 
                                 Trans_in_Acct tacct = new Trans_in_Acct();
                                 tacct.tranid = t.tranid;
                                 tacct.accountid = account.accountid;
+                                tacct.ccregion = account.ccregion;
 
+                                _timeLogger.Start("TranAccountInsert");
                                 _traninacct.Insert(tacct, newTuple.Item1);
+                                _timeLogger.StopAndLog("TranAccountInsert");
 
                                 await _baseCockroachADO.CommitTransactionAsync(newTuple.Item1, newTuple.Item2);
-                                //baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPayment");
+                                baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPayment");
                                 baseResponseDTO.BaseEntityInstance = t;
                                 return baseResponseDTO;
 
@@ -259,7 +289,7 @@ namespace CoreCard.Tesla.Falcon.Services
                             else
                             {
                                 await _baseCockroachADO.RollbackTransactionAsync(newTuple.Item1, newTuple.Item2);
-                                //baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPayment");
+                                baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPayment");
                                 baseResponseDTO.BaseEntityInstance = "Error{'Message':'Account does not exist.'}";
                                 return baseResponseDTO;
                             }
@@ -269,7 +299,7 @@ namespace CoreCard.Tesla.Falcon.Services
                         else
                         {
                             await _baseCockroachADO.RollbackTransactionAsync(newTuple.Item1, newTuple.Item2);
-                            //baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPayment");
+                            baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPayment");
                             baseResponseDTO.BaseEntityInstance = "Error{'Message':'Amount is Zero.'}";
                             return baseResponseDTO;
                         }
@@ -304,13 +334,13 @@ namespace CoreCard.Tesla.Falcon.Services
                                 }
                                 else
                                 {
-                                    //_logger.LogError(tx, "AddPaymentADOAsync");
+                                    _logger.LogError(tx, "AddPaymentADOAsync");
                                 }
                             }
                         }
                         else
                         {
-                            //_logger.LogError(e, "AddPaymentADOAsync ErrorCode:");
+                            _logger.LogError(e, "AddPaymentADOAsync ErrorCode:");
                             throw;
                         }
 
@@ -320,7 +350,7 @@ namespace CoreCard.Tesla.Falcon.Services
             }
             catch (Exception ex)
             {
-                //_logger.LogError(ex, "AddPaymentADOAsync");
+                _logger.LogError(ex, "AddPaymentADOAsync");
                 await _baseCockroachADO.RollbackTransactionAsync(newTuple.Item1, newTuple.Item2);
 
 
@@ -338,10 +368,10 @@ namespace CoreCard.Tesla.Falcon.Services
                 aPILog.apiname = "Payment";
                 aPILog.logtime = DateTime.UtcNow;
                 aPILog.response = responseTy;
+                //aPILog.ccregion = ccregion;
                 _apilogBAL.Insert(aPILog);
 
             }
-
 
 
 

@@ -14,20 +14,20 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 {
     public class ADOCBLogRepository : BaseCockroachADO, IADOCBLogRepository
     {
-        public ADOCBLogRepository(IConfiguration configuration) :base(configuration)
+        public ADOCBLogRepository(IConfiguration configuration) : base(configuration)
         {
         }
         public CBLog Add(CBLog t)
         {
-            IDictionary<string,object> dic = t.ToDictionary();
-            _dbCommand.ExecuteParameterizedNonQuery("insert into cblog(accountid,currentbal,tranid,tranamount,posttime) values (@accountid,@currentbal,@tranid,@tranamount,@posttime) Returning cblogid;", dic);
+            IDictionary<string, object> dic = t.ToDictionary();
+            _dbCommand.ExecuteParameterizedNonQuery("insert into cblog(accountid,currentbal,tranid,tranamount,posttime,) values (@accountid,@currentbal,@tranid,@tranamount,@posttime) Returning cblogid;", dic);
             //return Get((Guid)uuid);
             return t;
         }
         public void Insert(CBLog t, DBAdapter.IDataBaseCommand dataBaseCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            dataBaseCommand.ExecuteParameterizedNonQuery("insert into cblog(accountid,currentbal,tranid,tranamount,posttime) values (@accountid,@currentbal,@tranid,@tranamount,@posttime) Returning cblogid;", dic);
+            dataBaseCommand.ExecuteParameterizedNonQuery("insert into cblog(accountid,currentbal,tranid,tranamount,posttime,ccregion) values (@accountid,@currentbal,@tranid,@tranamount,@posttime,@ccregion) Returning cblogid;", dic);
 
         }
         public Task<CBLog> AddAsync(CBLog t, CancellationToken token = default)

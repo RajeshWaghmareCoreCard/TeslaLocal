@@ -102,18 +102,18 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 
         public void UpdatePurchase(LoyaltyPlan t)
         {
-            _dbCommand.ExecuteNonQuery("select * from loyaltyplan where accountid = '" + t.accountid + "' for update; update loyaltyplan set rewardbal = " + t.rewardbal + " where accountid = '"+t.accountid + "'");
+            _dbCommand.ExecuteNonQuery("update loyaltyplan set rewardbal = " + t.rewardbal + " where accountid = '" + t.accountid + "'");
         }
 
         public void UpdatePurchase(LoyaltyPlan t, DBAdapter.IDataBaseCommand dataBaseCommand)
         {
-            dataBaseCommand.ExecuteNonQuery("select * from loyaltyplan where accountid = '" + t.accountid + "' for update; update loyaltyplan set rewardbal = " + t.rewardbal + " where accountid = '" + t.accountid + "'");
+            dataBaseCommand.ExecuteNonQuery("Select * from loyaltyplan where accountid='" + t.accountid + "' FOR UPDATE; update loyaltyplan set rewardbal = " + t.rewardbal + " where accountid = '" + t.accountid + "'");
         }
 
         public void Insert(LoyaltyPlan t, DBAdapter.IDataBaseCommand dataBaseCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            dataBaseCommand.ExecuteParameterizedNonQuery("insert into loyaltyplan(accountid,loyaltyplantype,rewardbal) values (@accountid,@loyaltyplantype,@rewardbal)", dic);
+            dataBaseCommand.ExecuteParameterizedNonQuery("insert into loyaltyplan(accountid,loyaltyplantype,rewardbal,ccregion) values (@accountid,@loyaltyplantype,@rewardbal,@ccregion)", dic);
         }
     }
 }

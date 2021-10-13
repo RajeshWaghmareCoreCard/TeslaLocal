@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CoreCard.Tesla.Falcon.ADORepository
 {
-    public class ADOCustomerRepository: BaseCockroachADO,IADOCustomerRepository
+    public class ADOCustomerRepository : BaseCockroachADO, IADOCustomerRepository
     {
         public ADOCustomerRepository(IConfiguration configuration) : base(configuration)
         {
@@ -20,7 +20,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public Customer Add(Customer t)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            object uuid = _dbCommand.ExecuteParameterizedScalarCommand("insert into transaction(accountid,trantype,trancode,trantime,amount,cardnumber) values (@accountid,@trantype,@trancode,@trantime,@amount,@cardnumber) Returning tranid;", dic);
+            object uuid = _dbCommand.ExecuteParameterizedScalarCommand("insert into transaction(accountid,trantype,trancode,trantime,amount,cardnumber,ccregion) values (@accountid,@trantype,@trancode,@trantime,@amount,@cardnumber,@ccregion) Returning tranid;", dic);
             return Get((Guid)uuid);
         }
 
@@ -107,7 +107,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public Guid Insert(Customer t, IDataBaseCommand dbcommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            object uuid = dbcommand.ExecuteParameterizedScalarCommand("insert into customer(ssn,firstname,lastname) values (@ssn,@firstname,@lastname) Returning customerid;", dic);
+            object uuid = dbcommand.ExecuteParameterizedScalarCommand("insert into customer(ssn,firstname,lastname,ccregion) values (@ssn,@firstname,@lastname,@ccregion) Returning customerid;", dic);
             return (Guid)uuid;
         }
     }

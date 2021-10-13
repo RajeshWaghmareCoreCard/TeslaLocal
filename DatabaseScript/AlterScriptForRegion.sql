@@ -1,19 +1,22 @@
-update embossing set binnumber = 0 where binnumber is null;
-alter table embossing alter column binnumber set not null;
-alter table embossing alter primary key using columns (binnumber, embossingid);
+/*
+CRDD Team you are free to alter the scripts as per the Region requirement.
+*/
+
+alter table embossing add column ccregion text not null default '';
+alter table embossing alter primary key using columns (ccregion, embossingid);
 
 drop index embossing_embossingid_key cascade;
-create unique index embossing_embossingid_key on embossing (binnumber, embossingid);
+create unique index embossing_embossingid_key on embossing (ccregion, embossingid);
 drop index embossing_cardnumber_idx;
-create index embossing_cardnumber_idx on embossing (binnumber, cardnumber);
+create index embossing_cardnumber_idx on embossing (ccregion, cardnumber);
 
 
-alter table "transaction" add column binnumber Int8 not null default 0;
-alter table "transaction" alter primary key using columns (binnumber, tranid);
+alter table "transaction" add column ccregion text not null default '';
+alter table "transaction" alter primary key using columns (ccregion, tranid);
 drop index index_transaction_cardno;
-create index index_transaction_cardno on "transaction" (binnumber, cardnumber);
+create index index_transaction_cardno on "transaction" (ccregion, cardnumber);
 drop index index_transaction_trantype;
-create index index_transaction_trantype on "transaction" (binnumber, trantype);
+create index index_transaction_trantype on "transaction" (ccregion, trantype);
 
 alter table account add column ccregion text not null default '';
 alter table account alter primary key using columns (ccregion, accountid);
@@ -23,9 +26,9 @@ create index account_accountnumber_idx on account (ccregion, accountnumber);
 alter table address add column ccregion text not null default '';
 alter table address alter primary key using columns (ccregion, addressid);
 
-alter table apilog add column ccregion text not null default '';
+/*alter table apilog add column ccregion text not null default '';
 alter table apilog alter primary key using columns (ccregion, logid);
-
+*/
 alter table cblog add column ccregion text not null default '';
 alter table cblog alter primary key using columns (ccregion, cblogid);
 drop index cblog@index_cblog_id;

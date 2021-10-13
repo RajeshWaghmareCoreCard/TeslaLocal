@@ -14,12 +14,12 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 {
     public class ADOLogArTxnRepository : BaseCockroachADO, IADOLogArTxnRepository
     {
-        public ADOLogArTxnRepository(IConfiguration configuration) :base(configuration)
+        public ADOLogArTxnRepository(IConfiguration configuration) : base(configuration)
         {
         }
         public LogArTxn Add(LogArTxn t)
         {
-            IDictionary<string,object> dic = t.ToDictionary();
+            IDictionary<string, object> dic = t.ToDictionary();
             _dbCommand.ExecuteParameterizedNonQuery("insert into logartxn(businessdate,artype,tranid,status) values (@businessdate,@artype,@tranid,@status) Returning logartxnid;", dic);
             return t;
 
@@ -27,7 +27,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public void Insert(LogArTxn t, DBAdapter.IDataBaseCommand dataBaseCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            dataBaseCommand.ExecuteParameterizedNonQuery("insert into logartxn(businessdate,artype,tranid,status) values (@businessdate,@artype,@tranid,@status) Returning logartxnid;", dic);
+            dataBaseCommand.ExecuteParameterizedNonQuery("insert into logartxn(businessdate,artype,tranid,status,ccregion) values (@businessdate,@artype,@tranid,@status,@ccregion) Returning logartxnid;", dic);
         }
         public Task<LogArTxn> AddAsync(LogArTxn t, CancellationToken token = default)
         {

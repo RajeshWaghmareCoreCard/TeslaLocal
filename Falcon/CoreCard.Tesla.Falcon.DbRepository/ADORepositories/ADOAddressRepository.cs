@@ -79,7 +79,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public void Insert(Address t, IDataBaseCommand databaseCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            databaseCommand.ExecuteParameterizedNonQuery("insert into address(housenumber, street, city, state, zipcode, customerid, addresstype) values (@housenumber, @street, @city, @state, @zipcode, @customerid, @addresstype) ", dic);
+            databaseCommand.ExecuteParameterizedNonQuery("insert into address(housenumber, street, city, state, zipcode, customerid, addresstype,ccregion) values (@housenumber, @street, @city, @state, @zipcode, @customerid, @addresstype,@ccregion) ", dic);
         }
 
         public void RejectChanges()

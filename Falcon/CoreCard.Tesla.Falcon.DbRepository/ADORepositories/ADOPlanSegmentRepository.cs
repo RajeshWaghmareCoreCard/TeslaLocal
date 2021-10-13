@@ -26,10 +26,22 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public void Add(PlanSegment t, DBAdapter.IDataBaseCommand dbCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            object uuid = dbCommand.ExecuteParameterizedScalarCommand("insert into plansegment(plantype,accountid,creationtime,purchaseamount,principal,fees,interest,purchasecount) values (@plantype,@accountid,@creationtime,@purchaseamount,@principal,@fees,@interest,@purchasecount)  Returning planid;", dic);
+            object uuid = dbCommand.ExecuteParameterizedScalarCommand("insert into plansegment(plantype,accountid,creationtime,purchaseamount,principal,fees,interest,purchasecount,ccregion) values (@plantype,@accountid,@creationtime,@purchaseamount,@principal,@fees,@interest,@purchasecount,@ccregion)  Returning planid;", dic);
         }
 
-
+        public void UpdatePlanSegmentWithPayment(List<PlanSegment> planSegments, DBAdapter.IDataBaseCommand dbCommand)
+        {
+            foreach (PlanSegment p in planSegments)
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("update plansegment set ");
+                sb.Append(string.Format("fees = {0}, ", p.fees));
+                sb.Append(string.Format("interest = {0}, ", p.interest));
+                sb.Append(string.Format("principal = {0} ", p.principal));
+                sb.Append(" where planid = '" + p.planid.ToString() + "';");
+                dbCommand.ExecuteNonQuery(sb.ToString());
+            }
+        }
         public Task<PlanSegment> AddAsync(PlanSegment t, CancellationToken token = default)
         {
             throw new NotImplementedException();
@@ -76,7 +88,6 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 
             return ps;
         }
-
         public List<PlanSegment> GetAll()
         {
             throw new NotImplementedException();
@@ -132,18 +143,6 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             throw new NotImplementedException();
         }
 
-        public void UpdatePlanSegmentWithPayment(List<PlanSegment> planSegments, DBAdapter.IDataBaseCommand dbCommand)
-        {
-            foreach (PlanSegment p in planSegments)
-            {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("update plansegment set ");
-                sb.Append(string.Format("fees = {0}, ", p.fees));
-                sb.Append(string.Format("interest = {0}, ", p.interest));
-                sb.Append(string.Format("principal = {0} ", p.principal));
-                sb.Append(" where planid = '" + p.planid.ToString() + "';");
-                dbCommand.ExecuteNonQuery(sb.ToString());
-            }
-        }
+
     }
 }

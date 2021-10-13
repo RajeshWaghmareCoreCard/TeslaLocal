@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using CoreCard.Tesla.Falcon.ADORepository;
 using DBAdapter;
 using CoreCard.Tesla.Utilities;
+using Microsoft.Extensions.Configuration;
 
 namespace CoreCard.Tesla.Falcon.Services
 {
@@ -28,16 +29,18 @@ namespace CoreCard.Tesla.Falcon.Services
         private Tuple<DBAdapter.IDataBaseCommand, object> newTuple;
 
         private readonly object lockObject = new object();
+        protected IConfiguration _configuration;
 
-        public AccountBAL(TimeLogger timeLogger, /*IAccountRepository accountRepository,*/ IADOAccountRepository adoAccountRepository) //: base(accountRepository)
+        public AccountBAL(TimeLogger timeLogger, /*IAccountRepository accountRepository,*/ IADOAccountRepository adoAccountRepository, IConfiguration configuration) //: base(accountRepository)
         {
             //_accountRepository = accountRepository;
             _timeLogger = timeLogger;
             _adoaccountRepository = adoAccountRepository;
+            _configuration = configuration;
         }
         public AccountBAL(TimeLogger timeLogger, /*IAccountRepository accountRepository, */IADOAccountRepository adoAccountRepository,IAddressBAL addressBAL,
             ICustomerBAL customerBAL, IEmbossingBAL embossingBAL, IBaseCockroachADO baseCockroachADO,
-            ILoyaltyPlanBAL loyaltyPlanBAL, IAPILogBAL aPILogBAL) //: base(accountRepository)
+            ILoyaltyPlanBAL loyaltyPlanBAL, IAPILogBAL aPILogBAL, IConfiguration configuration) //: base(accountRepository)
         {
             //_accountRepository = accountRepository;
             _customerBAL = customerBAL;
@@ -48,6 +51,7 @@ namespace CoreCard.Tesla.Falcon.Services
             //_adoaccountRepository = adoAccountRepository;
             _baseCockroachADO = baseCockroachADO;
             _addressBAL = addressBAL;
+            _configuration = configuration;
         }
         //public async Task<Account> GetAccountByNumber(UInt64 AccountNumber)
         //{
@@ -65,8 +69,12 @@ namespace CoreCard.Tesla.Falcon.Services
             // ToDo: Nitin Validation Logic is pending.
             int responseType = 0;
             Account newAccount;
+            _timeLogger.Start("AddAccountBAL");
             BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
+            _timeLogger.Start("BeginTransactionAsync");
             newTuple = await _baseCockroachADO.BeginTransactionAsync();
+            _timeLogger.StopAndLog("BeginTransactionAsync");
+            string ccregion = "";
             try
             {
 
@@ -75,15 +83,21 @@ namespace CoreCard.Tesla.Falcon.Services
                 //using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }, TransactionScopeAsyncFlowOption.Enabled))
                 //using (var scope = new TransactionScope( TransactionScopeAsyncFlowOption.Enabled))
                 //{
-
+                ccregion = Convert.ToString(_configuration.GetSection("ccregion").Value);
                 // Create Customer Object
-                //Customer newCustomer = await _customerBAL.AddCustomerAsync(customerDTO);
-                Guid newCustomerId = _customerBAL.Insert(CustomerAddDTO.MapToCustomer(customerDTO), newTuple.Item1);
+                Customer newCustomer = CustomerAddDTO.MapToCustomer(customerDTO);
+                newCustomer.ccregion = ccregion;
+                _timeLogger.Start("CustomerInsert");
+                Guid newCustomerId = _customerBAL.Insert(newCustomer, newTuple.Item1);
+                _timeLogger.StopAndLog("CustomerInsert");
 
                 Address newAddres = AddressAddDTO.MapToAddress(customerDTO.CustomerAddress);
                 newAddres.customerid = newCustomerId;
                 newAddres.addresstype = 0;
+                newAddres.ccregion = ccregion;
+                _timeLogger.Start("AddressInsert");
                 _addressBAL.Insert(newAddres, newTuple.Item1);
+                _timeLogger.StopAndLog("AddressInsert");
                 // Create Account Object
                 newAccount = new Account();
                 //newAccount.accountid = Guid.NewGuid();
@@ -98,13 +112,17 @@ namespace CoreCard.Tesla.Falcon.Services
                 newAccount.purchasecount = 0;
                 newAccount.paymentamount = 0;
                 newAccount.paymentcount = 0;
-
+                newAccount.ccregion = ccregion;
                 //await _accountRepository.AddAsync(newAccount);
+                _timeLogger.Start("AccountInsert");
                 Guid accountId = _adoaccountRepository.Insert(newAccount, newTuple.Item1);
+                _timeLogger.StopAndLog("AccountInsert");
                 newAccount.accountid = accountId;
                 // Embossing – (Generate CardNumber, encrypt and store)
                 //await _embossingBAL.AddEmbossingAsync(newAccount.accountid);
+                _timeLogger.Start("EmbossingInsert");
                 _embossingBAL.Insert(accountId, newTuple.Item1);
+                _timeLogger.StopAndLog("EmbossingInsert");
                 // LoyaltyPlan
                 //await _loyaltyPlanBAL.AddLoyaltyPlanAsync(newAccount.accountid);
                 LoyaltyPlan loyaltyPlan = new LoyaltyPlan();
@@ -112,9 +130,14 @@ namespace CoreCard.Tesla.Falcon.Services
                 loyaltyPlan.accountid = accountId;
                 loyaltyPlan.loyaltyplantype = 0;
                 loyaltyPlan.rewardbal = 0;
+                loyaltyPlan.ccregion = ccregion;
+                _timeLogger.Start("AccountLoyaltyplan");
                 _loyaltyPlanBAL.Insert(loyaltyPlan, newTuple.Item1);
+                _timeLogger.StopAndLog("AccountLoyaltyplan");
 
+                _timeLogger.Start("AccountCommitTransactionAsync");
                 await _baseCockroachADO.CommitTransactionAsync(newTuple.Item1, newTuple.Item2);
+                _timeLogger.StopAndLog("AccountCommitTransactionAsync");
 
                 //    scope.Complete();
                 //}
@@ -140,6 +163,7 @@ namespace CoreCard.Tesla.Falcon.Services
                 aPILog.apiname = "CreateAccount";
                 aPILog.logtime = DateTime.UtcNow;
                 aPILog.response = responseType;
+                aPILog.ccregion = ccregion;
                 _aPILogBAL.Insert(aPILog);
                 //_accountRepository.Save();
             }

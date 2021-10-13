@@ -14,13 +14,13 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 {
     public class ADOTranInAcctRepository : BaseCockroachADO, IADOTranInAcctRepository
     {
-        public ADOTranInAcctRepository(IConfiguration configuration) :base(configuration)
+        public ADOTranInAcctRepository(IConfiguration configuration) : base(configuration)
         {
         }
         public Trans_in_Acct Add(Trans_in_Acct t)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            _dbCommand.ExecuteParameterizedNonQuery("insert into trans_in_acct(accountid,tranid) values (@accountid,@tranid)", dic);
+            _dbCommand.ExecuteParameterizedNonQuery("insert into trans_in_acct(accountid,tranid,ccregion) values (@accountid,@tranid,@ccregion)", dic);
             return t;
         }
 
@@ -113,7 +113,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public void Insert(Trans_in_Acct t, DBAdapter.IDataBaseCommand dataBaseCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            dataBaseCommand.ExecuteParameterizedNonQuery("insert into trans_in_acct(accountid,tranid) values (@accountid,@tranid)", dic);
+            dataBaseCommand.ExecuteParameterizedNonQuery("insert into trans_in_acct(accountid,tranid,ccregion) values (@accountid,@tranid,@ccregion)", dic);
         }
     }
 }

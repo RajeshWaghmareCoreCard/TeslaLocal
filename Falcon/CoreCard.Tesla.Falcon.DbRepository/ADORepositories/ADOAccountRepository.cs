@@ -160,9 +160,9 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 
             DataSet ds = _dbCommand.GetDataSet(sb.ToString());
             Account o = new Account();
-            if(ds != null && ds.Tables.Count>0)
+            if (ds != null && ds.Tables.Count > 0)
             {
-                if(ds.Tables[0].Rows.Count > 0)
+                if (ds.Tables[0].Rows.Count > 0)
                 {
                     o = (Account)ds.Tables[0].Rows[0];
                 }
@@ -199,7 +199,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public Guid Insert(Account t, IDataBaseCommand databaseCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            object uuid = databaseCommand.ExecuteParameterizedScalarCommand("insert into account(accountnumber,customerid,creditlimit,currentbal,principal,purchaseamount,fees,interest,purchasecount,paymentamount,paymentcount) values (@accountnumber,@customerid,@creditlimit,@currentbal,@principal,@purchaseamount,@fees,@interest,@purchasecount,@paymentamount,@paymentcount) Returning accountid;", dic);
+            object uuid = databaseCommand.ExecuteParameterizedScalarCommand("insert into account(accountnumber,customerid,creditlimit,currentbal,principal,purchaseamount,fees,interest,purchasecount,paymentamount,paymentcount,ccregion) values (@accountnumber,@customerid,@creditlimit,@currentbal,@principal,@purchaseamount,@fees,@interest,@purchasecount,@paymentamount,@paymentcount,@ccregion) Returning accountid;", dic);
             return (Guid)uuid;
         }
 
@@ -207,17 +207,18 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         {
             Account acc = new Account();
 
-            acc = dataBaseCommand.ExecuteDatareader<Account>("SELECT accountid, accountnumber,ifnull(customerid,'00000000-0000-0000-0000-000000000000') as customerid,creditlimit,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount,ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status FROM Account where accountid ='" + guid + "' for update;").FirstOrDefault();
+            acc = dataBaseCommand.ExecuteDatareader<Account>("SELECT accountid, accountnumber,ifnull(customerid,'00000000-0000-0000-0000-000000000000') as customerid,creditlimit,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount,ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status, ifnull(ccregion,'') as ccregion FROM Account where accountid ='" + guid + "' for update;").FirstOrDefault();
 
             return acc;
         }
+
         public Account GetAccountByNumber(UInt64 AccountNumber, IDataBaseCommand dataBaseCommand)
         {
             StringBuilder strQry = new StringBuilder();
             strQry.Append("SELECT accountid, accountnumber,ifnull(customerid,'00000000-0000-0000-0000-000000000000') as customerid");
             strQry.Append(", creditlimit,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount");
             strQry.Append(", ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount");
-            strQry.Append(" ,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status ");
+            strQry.Append(" ,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status, ifnull(ccregion,'') as ccregion ");
             strQry.Append(" FROM Account where accountnumber =" + AccountNumber.ToString() + " for update;");
             Account acc = new Account();
 

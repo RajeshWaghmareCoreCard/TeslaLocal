@@ -14,12 +14,12 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 {
     public class ADOTransactionRepository : BaseCockroachADO, IADOTransactionRepository
     {
-        public ADOTransactionRepository(IConfiguration configuration) :base(configuration)
+        public ADOTransactionRepository(IConfiguration configuration) : base(configuration)
         {
         }
         public Transaction Add(Transaction t)
         {
-            IDictionary<string,object> dic = t.ToDictionary();
+            IDictionary<string, object> dic = t.ToDictionary();
             object uuid = _dbCommand.ExecuteParameterizedScalarCommand("insert into transaction(accountid,trantype,trancode,trantime,amount,cardnumber) values (@accountid,@trantype,@trancode,@trantime,@amount,@cardnumber) Returning tranid;", dic);
             return Get((Guid)uuid);
 
@@ -27,7 +27,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         public Guid Add(Transaction t, IDataBaseCommand dbCommand)
         {
             IDictionary<string, object> dic = t.ToDictionary();
-            object uuid = dbCommand.ExecuteParameterizedScalarCommand("insert into transaction(accountid,trantype,trancode,trantime,amount,cardnumber) values (@accountid,@trantype,@trancode,@trantime,@amount,@cardnumber) Returning tranid;", dic);
+            object uuid = dbCommand.ExecuteParameterizedScalarCommand("insert into transaction(accountid,trantype,trancode,trantime,amount,cardnumber,ccregion) values (@accountid,@trantype,@trancode,@trantime,@amount,@cardnumber,@ccregion) Returning tranid;", dic);
             return (Guid)uuid;
         }
         public Task<Transaction> AddAsync(Transaction t, CancellationToken token = default)
@@ -52,7 +52,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 
         public Transaction Get(Guid id)
         {
-            string sql = "SELECT * FROM transaction where tranid ='"+id+"'";
+            string sql = "SELECT * FROM transaction where tranid ='" + id + "'";
 
             DataSet ds = _dbCommand.GetDataSet(sql);
 

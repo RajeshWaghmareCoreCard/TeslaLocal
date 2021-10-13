@@ -13,6 +13,7 @@ using DBAdapter;
 using CoreCard.Tesla.Utilities;
 using CoreCard.Tesla.Falcon.Services.Purchase;
 using Npgsql;
+using Microsoft.Extensions.Logging;
 
 namespace CoreCard.Tesla.Falcon.Services
 {
@@ -33,12 +34,13 @@ namespace CoreCard.Tesla.Falcon.Services
         private readonly IEmbossingBAL _embossingBAL;
         private readonly IBaseCockroachADO _baseCockroachADO;
         private Tuple<DBAdapter.IDataBaseCommand, object> transactionTuple;
+        private readonly ILogger<PurchaseBAL> _logger;
 
         private readonly object lockObject = new object();
 
         public PurchaseBAL(TimeLogger timeLogger, /*ITransactionRepository transactionRepository, IEmbossingRepository embosingRepository, ILoyaltyPlanRepository loyaltyPlanRepository,*/
             IPlanSegmentBAL plansegmentBAL, IAccountBAL accountBAL, ICBLogBAL cBLogBAL, ITransInAcctBAL transInAcctBal, ILogArTxnBAL logArTxnBAL, IEmbossingBAL embossingBAL, IBaseCockroachADO baseCockroachADO,
-            ILoyaltyPlanBAL loyaltyPlanBAL, IAPILogBAL aPILogBAL, ITransactionBAL transactionBAL)// : base(transactionRepository)
+            ILoyaltyPlanBAL loyaltyPlanBAL, IAPILogBAL aPILogBAL, ITransactionBAL transactionBAL, ILogger<PurchaseBAL> logger)// : base(transactionRepository)
         {
             //_transactionRepository = transactionRepository;
             //_embosingRepository = embosingRepository;
@@ -54,11 +56,16 @@ namespace CoreCard.Tesla.Falcon.Services
             _transactionBAL = transactionBAL;
             _embossingBAL = embossingBAL;
             _baseCockroachADO = baseCockroachADO;
+            _logger = logger;
         }
 
         public async Task<BaseResponseDTO> AddTransactionAsync(TransactionAddDTO transactionAddDTO)
         {
+            _timeLogger.Start("AddPurchase");
+            _timeLogger.Start("BeginTransactionAsync");
             transactionTuple = await _baseCockroachADO.BeginTransactionAsync();
+            _timeLogger.StopAndLog("BeginTransactionAsync");
+            //string ccregion = "UNKNOWN-PURCHASE-REGION";
             BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
             int responseType = 0;
             int retry = 0;
@@ -67,26 +74,36 @@ namespace CoreCard.Tesla.Falcon.Services
             Account updatedAccount = new Account();
             try
             {
-                // _timeLogger.Start("AddPurchase");
+
                 while (true)
                 {
                     Guid guid = Guid.NewGuid();
                     string savePointName = "purchase_restart" + guid.ToString();
+
                     try
                     {
 
                         //using (TransactionScope transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                         //{
+                        _timeLogger.Start("SavePointAsync");
                         await _baseCockroachADO.SavePointAsync(transactionTuple.Item1, transactionTuple.Item2, savePointName);
+                        _timeLogger.StopAndLog("SavePointAsync");
                         Transaction intransact = TransactionAddDTO.MapToTransaction(transactionAddDTO);
+                        _timeLogger.Start("GetEmbossingByCardNumber");
                         Embossing embossing = _embossingBAL.GetEmbossingByCardNumber(transactionAddDTO.cardnumber, transactionTuple.Item1);
+                        _timeLogger.StopAndLog("GetEmbossingByCardNumber");
                         if (embossing != null)
                         {
+                            _timeLogger.Start("GetAccountByID_ADO");
+
                             updatedAccount = _accountBAL.GetAccountByID_ADO(embossing.accountid, transactionTuple.Item1);
+                            _timeLogger.StopAndLog("GetAccountByID_ADO");
                         }
                         else
                         {
+                            _timeLogger.Start("CommitTransactionAsync");
                             await _baseCockroachADO.CommitTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
+                            _timeLogger.StopAndLog("CommitTransactionAsync");
                             //baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
                             baseResponseDTO.BaseEntityInstance = "Error{'Message':'Card does not exist.'}";
                             return baseResponseDTO;
@@ -98,7 +115,10 @@ namespace CoreCard.Tesla.Falcon.Services
                             updatedAccount.currentbal = updatedAccount.currentbal + transactionAddDTO.amount;
                             updatedAccount.principal = updatedAccount.principal + transactionAddDTO.amount;
                             updatedAccount.purchaseamount = updatedAccount.purchaseamount + transactionAddDTO.amount;
+                            updatedAccount.ccregion = embossing.ccregion;
+                            _timeLogger.Start("UpdatePurchase");
                             updatedAccount = _accountBAL.UpdatePurchase(updatedAccount, transactionTuple.Item1);
+                            _timeLogger.StopAndLog("UpdatePurchase");
 
                             PlanSegment planSegment = new PlanSegment();
                             planSegment.plantype = 1;// "Insatallment";
@@ -110,27 +130,39 @@ namespace CoreCard.Tesla.Falcon.Services
                             planSegment.interest = intransact.amount * Convert.ToDecimal(0.15);
                             planSegment.purchasecount = 1;
                             planSegment.accountid = updatedAccount.accountid;
+                            planSegment.ccregion = embossing.ccregion;
+                            _timeLogger.Start("PlansegmentInsert");
                             _PlansegmentBAL.Insert(planSegment, transactionTuple.Item1);
+                            _timeLogger.StopAndLog("PlansegmentInsert");
 
                             //LoyaltyPlan loyaltyplan = _loyaltyPlanRepository.GetEntity("Select * from loyaltyplan where accountid = '" + account.accountid + "'");
                             LoyaltyPlan loyaltyplan = new LoyaltyPlan();
                             loyaltyplan.accountid = updatedAccount.accountid;
                             loyaltyplan.rewardbal = loyaltyplan.rewardbal + 2;
+                            loyaltyplan.ccregion = embossing.ccregion;
+                            _timeLogger.Start("LoyaltyUpdatePurchase");
                             _loyaltyPlanBAL.UpdatePurchase(loyaltyplan, transactionTuple.Item1);
+                            _timeLogger.StopAndLog("LoyaltyUpdatePurchase");
 
                             intransact.trancode = 100;
                             intransact.trantype = "40";
                             intransact.accountid = updatedAccount.accountid;
+                            intransact.ccregion = embossing.ccregion;
                             //Entity.Transaction newTransact = _transactionBAL.AddTransactionADO(intransact); //await _transactionRepository.AddAsync(intransact);
+                            _timeLogger.Start("PurchaseAddTransactionADO");
                             Guid newTranId = _transactionBAL.AddTransactionADO(intransact, transactionTuple.Item1);
+                            _timeLogger.StopAndLog("PurchaseAddTransactionADO");
 
                             LogArTxn newLogARTxn = new LogArTxn();
                             newLogARTxn.businessdate = DateTime.UtcNow;
                             newLogARTxn.artype = 1;
                             newLogARTxn.tranid = newTranId;
                             newLogARTxn.status = "Success";
+                            newLogARTxn.ccregion = embossing.ccregion;
                             //await _logArTxnBAL.AddAsync(newLogARTxn);
+                            _timeLogger.Start("PurchaseLogArInsert");
                             _logArTxnBAL.Insert(newLogARTxn, transactionTuple.Item1);
+                            _timeLogger.StopAndLog("PurchaseLogArInsert");
 
                             CBLog cbLog = new CBLog();
                             cbLog.accountid = updatedAccount.accountid;
@@ -138,18 +170,25 @@ namespace CoreCard.Tesla.Falcon.Services
                             cbLog.tranid = newTranId;
                             cbLog.tranamount = transactionAddDTO.amount;
                             cbLog.posttime = DateTime.UtcNow;
+                            cbLog.ccregion = embossing.ccregion;
                             // await _cBLogBAL.AddAsync(cbLog);
+                            _timeLogger.Start("PurchaseCBLogInsert");
                             _cBLogBAL.Insert(cbLog, transactionTuple.Item1);
+                            _timeLogger.StopAndLog("PurchaseCBLogInsert");
 
                             Trans_in_Acct trans_In_Acct = new Trans_in_Acct();
                             trans_In_Acct.accountid = updatedAccount.accountid;
                             trans_In_Acct.tranid = newTranId;
+                            trans_In_Acct.ccregion = embossing.ccregion;
                             //await _transInAcctBal.AddAsync(trans_In_Acct);
+                            _timeLogger.Start("PurchaseTranAcctInsert");
                             _transInAcctBal.Insert(trans_In_Acct, transactionTuple.Item1);
+                            _timeLogger.StopAndLog("PurchaseTranAcctInsert");
 
-
+                            _timeLogger.Start("PurchaseCommitTransactionAsync");
                             await _baseCockroachADO.CommitTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
-                            //baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
+                            _timeLogger.StopAndLog("PurchaseCommitTransactionAsync");
+                            baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
                             baseResponseDTO.BaseEntityInstance = updatedAccount;
                             return baseResponseDTO;
                             //}
@@ -164,7 +203,7 @@ namespace CoreCard.Tesla.Falcon.Services
                         else
                         {
                             await _baseCockroachADO.RollbackTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
-                            //baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
+                            baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
                             baseResponseDTO.BaseEntityInstance = "Error{'Message':'Account does not exist.'}";
                             return baseResponseDTO;
                         }
@@ -182,13 +221,13 @@ namespace CoreCard.Tesla.Falcon.Services
                         {
                             if (tx.Message.Contains("This NpgsqlTransaction has completed"))
                             {
-                                // baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
+                                baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
                                 baseResponseDTO.BaseEntityInstance = updatedAccount;
                                 return baseResponseDTO;
                             }
                             else
                             {
-                               // _logger.LogError(tx, "AddPurchaseAsync");
+                                _logger.LogError(tx, "AddPurchaseAsync");
                             }
                         }
                         //_logger.LogError(e, "AddTransactionAsync ErrorCode:" + e.SqlState);
@@ -208,19 +247,19 @@ namespace CoreCard.Tesla.Falcon.Services
                             {
                                 if (tx.Message.Contains("This NpgsqlTransaction has completed"))
                                 {
-                                    // baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
+                                    baseResponseDTO.DataLayerTime = _timeLogger.StopAndLog("AddPurchase");
                                     baseResponseDTO.BaseEntityInstance = updatedAccount;
                                     return baseResponseDTO;
                                 }
                                 else
                                 {
-                                    //_logger.LogError(tx, "AddPurchaseAsync");
+                                    _logger.LogError(tx, "AddPurchaseAsync");
                                 }
                             }
                         }
                         else
                         {
-                            //_logger.LogError(e, "AddPurchaseAsync");
+                            _logger.LogError(e, "AddPurchaseAsync");
                             throw;
                         }
 
@@ -229,7 +268,7 @@ namespace CoreCard.Tesla.Falcon.Services
             }
             catch (Exception ex)
             {
-               // _logger.LogError(ex, "AddPurchaseAsync");
+                _logger.LogError(ex, "AddPurchaseAsync");
                 //_transactionRepository.RejectChanges();
                 await _baseCockroachADO.RollbackTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
                 responseType = -1;
@@ -243,12 +282,28 @@ namespace CoreCard.Tesla.Falcon.Services
                 aPILog.apiname = "Purchase";
                 aPILog.logtime = DateTime.UtcNow;
                 aPILog.response = responseType;
+                //aPILog.ccregion = embossing.ccregion;
                 _aPILogBAL.Insert(aPILog);
                 //_transactionRepository.Save();
             }
+
             //}
-
-
+            //BaseResponseDTO baseResponseDTO = new BaseResponseDTO();
+            //try
+            //{
+            //    transactionTuple = await _baseCockroachADO.BeginTransactionAsync();
+            //    _logger.LogInformation("Transaction Opened;");
+            //    await _baseCockroachADO.CommitTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
+            //    _logger.LogInformation("Transaction Committed;");
+            //    baseResponseDTO.BaseEntityInstance = "Response{'Message':'Transaction executed successfully'}";
+            //}
+            //catch (Exception e)
+            //{
+            //    await _baseCockroachADO.RollbackTransactionAsync(transactionTuple.Item1, transactionTuple.Item2);
+            //    baseResponseDTO.BaseEntityInstance = "Response{'Message':'Transaction Rolledback successfully'}";
+            //    _logger.LogInformation("Transaction RolledBack;");
+            //}
+            //return baseResponseDTO;
         }
 
         //public async Task<BaseResponseDTO> AddTransactionAsync(TransactionAddDTO transactionAddDTO)

@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using CoreCard.Tesla.Falcon.ADORepository;
 using DBAdapter;
 using CoreCard.Tesla.Utilities;
+using Microsoft.Extensions.Configuration;
 
 namespace CoreCard.Tesla.Falcon.Services
 {
@@ -18,10 +19,12 @@ namespace CoreCard.Tesla.Falcon.Services
     {
         //private readonly IEmbossingRepository _embossingRepository;
         private readonly IADOEmbossingRepository _iADOEmbossingRepository;
-        public EmbossingBAL(/*IEmbossingRepository embossingRepository,*/ IADOEmbossingRepository iADOEmbossingRepository)// : base(embossingRepository)
+        protected IConfiguration _configuration;
+        public EmbossingBAL(/*IEmbossingRepository embossingRepository,*/ IADOEmbossingRepository iADOEmbossingRepository, IConfiguration configuration)// : base(embossingRepository)
         {
             //_embossingRepository = embossingRepository;
             _iADOEmbossingRepository = iADOEmbossingRepository;
+            _configuration = configuration;
         }
 
         //public async Task<Embossing> AddEmbossingAsync(Guid accountId)
@@ -53,8 +56,12 @@ namespace CoreCard.Tesla.Falcon.Services
         {
             Embossing embossing = new Embossing();
             //embossing.embossingid = Guid.NewGuid();
+            //string [] binNumbers = _configuration.GetSection("BinNumber").Value.Split(',');
+            long binnumber = Convert.ToInt64(_configuration.GetSection("BinNumber").Value);
+            embossing.binnumber = binnumber;
             embossing.accountid = accountid;
             embossing.cardtype = 0;
+            embossing.ccregion = Convert.ToString(_configuration.GetSection("ccregion").Value);
             embossing.cardnumber = AccountNoGenerator.RandomCardNumber();
             _iADOEmbossingRepository.Insert(embossing, dataBaseCommand);
         }
