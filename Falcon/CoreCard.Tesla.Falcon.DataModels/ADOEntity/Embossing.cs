@@ -19,6 +19,7 @@ namespace CoreCard.Tesla.Falcon.DataModels.Entity
         public long? cardtype { get; set; }
         public Guid accountid { get; set; }
         public string? cardnumber { get; set; }
+        public long? binnumber { get; set; }
 
         public virtual string? column1 { get; set; }
         public virtual string? column2 { get; set; }

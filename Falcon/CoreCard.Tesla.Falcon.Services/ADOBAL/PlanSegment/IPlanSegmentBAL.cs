@@ -14,6 +14,6 @@ namespace CoreCard.Tesla.Falcon.Services
 
         void Insert(PlanSegment t, DBAdapter.IDataBaseCommand dbCommand);
         void UpdatePlanSegmentWithPayment(List<PlanSegment> planSegments, DBAdapter.IDataBaseCommand dbCommand);
-        List<PlanSegment> GetPlanSegmentsByAccountID_ADO(Guid AccountID, DBAdapter.IDataBaseCommand dbCommand);
+        List<PlanSegment> GetPlanSegmentsByAccountID_ADO(Guid AccountID, string ccregion, DBAdapter.IDataBaseCommand dbCommand);
     }
 }

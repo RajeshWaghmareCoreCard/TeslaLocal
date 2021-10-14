@@ -123,11 +123,11 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             dataBaseCommand.ExecuteParameterizedScalarCommand("insert into embossing(accountid,cardtype,cardnumber,binnumber,ccregion) values (@accountid,@cardtype,@cardnumber,@binnumber, @ccregion)  Returning accountid;", dic);
         }
 
-        public Embossing GetEmbossingByCardNumber(string cardnumber, IDataBaseCommand dataBaseCommand)
+        public Embossing GetEmbossingByCardNumber(string cardnumber, string ccregion, IDataBaseCommand dataBaseCommand)
         {
             Embossing acc = new Embossing();
 
-            acc = dataBaseCommand.ExecuteDatareader<Embossing>("select embossingid, ifnull(accountid,'00000000-0000-0000-0000-000000000000') as accountid,ifnull(cardtype,0)as cardtype,ifnull(cardnumber,'') as cardnumber , ifnull(binnumber,0) as binnumber, ifnull(ccregion,'') as ccregion from embossing where cardnumber = '" + cardnumber.Trim() + "' for update;").FirstOrDefault();
+            acc = dataBaseCommand.ExecuteDatareader<Embossing>("select embossingid, ifnull(accountid,'00000000-0000-0000-0000-000000000000') as accountid,ifnull(cardtype,0)as cardtype,ifnull(cardnumber,'') as cardnumber , ifnull(binnumber,0) as binnumber, ifnull(ccregion,'') as ccregion from embossing where ccregion ='" + ccregion + "' and cardnumber = '" + cardnumber.Trim() + "' for update;").FirstOrDefault();
 
             return acc;
         }

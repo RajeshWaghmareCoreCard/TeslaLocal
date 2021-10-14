@@ -20,7 +20,7 @@ namespace CoreCard.Tesla.Falcon.Services
         Account UpdatePurchase(Account t, DBAdapter.IDataBaseCommand dbCommand);
         void UpdateAccountWithPayment(Account t, DBAdapter.IDataBaseCommand dbCommand);
 
-        Account GetAccountByID_ADO(Guid id, DBAdapter.IDataBaseCommand dbCommand);
-        Account GetAccountByNumber_ADO(UInt64 AccountNumber, DBAdapter.IDataBaseCommand dbCommand);
+        Account GetAccountByID_ADO(Guid id, string ccregion, DBAdapter.IDataBaseCommand dbCommand);
+        Account GetAccountByNumber_ADO(UInt64 AccountNumber, string ccregion, DBAdapter.IDataBaseCommand dbCommand);
     }
 }

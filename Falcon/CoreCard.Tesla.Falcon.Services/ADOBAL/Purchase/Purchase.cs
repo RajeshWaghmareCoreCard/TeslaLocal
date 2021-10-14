@@ -90,13 +90,13 @@ namespace CoreCard.Tesla.Falcon.Services
                         _timeLogger.StopAndLog("SavePointAsync");
                         Transaction intransact = TransactionAddDTO.MapToTransaction(transactionAddDTO);
                         _timeLogger.Start("GetEmbossingByCardNumber");
-                        Embossing embossing = _embossingBAL.GetEmbossingByCardNumber(transactionAddDTO.cardnumber, transactionTuple.Item1);
+                        Embossing embossing = _embossingBAL.GetEmbossingByCardNumber(transactionAddDTO.cardnumber, transactionAddDTO.ccregion, transactionTuple.Item1);
                         _timeLogger.StopAndLog("GetEmbossingByCardNumber");
                         if (embossing != null)
                         {
                             _timeLogger.Start("GetAccountByID_ADO");
 
-                            updatedAccount = _accountBAL.GetAccountByID_ADO(embossing.accountid, transactionTuple.Item1);
+                            updatedAccount = _accountBAL.GetAccountByID_ADO(embossing.accountid, embossing.ccregion, transactionTuple.Item1);
                             _timeLogger.StopAndLog("GetAccountByID_ADO");
                         }
                         else

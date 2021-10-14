@@ -14,6 +14,6 @@ namespace CoreCard.Tesla.Falcon.ADORepository
         Embossing GetEmbossingByCardNumber(string cardnumber);
         void Insert(Embossing embossing, DBAdapter.IDataBaseCommand dataBaseCommand);
 
-        Embossing GetEmbossingByCardNumber(string cardnumber, IDataBaseCommand dataBaseCommand);
+        Embossing GetEmbossingByCardNumber(string cardnumber, string ccregion, IDataBaseCommand dataBaseCommand);
     }
 }

@@ -107,7 +107,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 
         public void UpdatePurchase(LoyaltyPlan t, DBAdapter.IDataBaseCommand dataBaseCommand)
         {
-            dataBaseCommand.ExecuteNonQuery("Select * from loyaltyplan where accountid='" + t.accountid + "' FOR UPDATE; update loyaltyplan set rewardbal = " + t.rewardbal + " where accountid = '" + t.accountid + "'");
+            dataBaseCommand.ExecuteNonQuery("Select * from loyaltyplan where ccregion='" + t.ccregion + "' and  accountid='" + t.accountid + "' FOR UPDATE; update loyaltyplan set rewardbal = " + t.rewardbal + " where ccregion='" + t.ccregion + "' and accountid = '" + t.accountid + "';");
         }
 
         public void Insert(LoyaltyPlan t, DBAdapter.IDataBaseCommand dataBaseCommand)

@@ -48,9 +48,9 @@ namespace CoreCard.Tesla.Falcon.Services
             return _iADOEmbossingRepository.GetEmbossingByCardNumber(cardnumber);
         }
 
-        public Embossing GetEmbossingByCardNumber(string cardnumber, DBAdapter.IDataBaseCommand dataBaseCommand)
+        public Embossing GetEmbossingByCardNumber(string cardnumber, string ccregion, DBAdapter.IDataBaseCommand dataBaseCommand)
         {
-            return _iADOEmbossingRepository.GetEmbossingByCardNumber(cardnumber, dataBaseCommand);
+            return _iADOEmbossingRepository.GetEmbossingByCardNumber(cardnumber, ccregion, dataBaseCommand);
         }
         public void Insert(Guid accountid, DBAdapter.IDataBaseCommand dataBaseCommand)
         {

@@ -13,6 +13,6 @@ namespace CoreCard.Tesla.Falcon.DataModels.Model
         public string trantype { get; set; }
         public decimal amount { get; set; }
         public UInt64 accountnumber { get; set; }
-        
+        public string ccregion { get; set; }
     }
 }

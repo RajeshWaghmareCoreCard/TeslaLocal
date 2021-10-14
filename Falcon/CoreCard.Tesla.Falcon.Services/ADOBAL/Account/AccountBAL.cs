@@ -74,7 +74,7 @@ namespace CoreCard.Tesla.Falcon.Services
             _timeLogger.Start("BeginTransactionAsync");
             newTuple = await _baseCockroachADO.BeginTransactionAsync();
             _timeLogger.StopAndLog("BeginTransactionAsync");
-            string ccregion = "";
+            //string ccregion = "";
             try
             {
 
@@ -83,10 +83,10 @@ namespace CoreCard.Tesla.Falcon.Services
                 //using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.ReadCommitted }, TransactionScopeAsyncFlowOption.Enabled))
                 //using (var scope = new TransactionScope( TransactionScopeAsyncFlowOption.Enabled))
                 //{
-                ccregion = Convert.ToString(_configuration.GetSection("ccregion").Value);
+                //ccregion = customerDTO.ccregion;// Convert.ToString(_configuration.GetSection("ccregion").Value);
                 // Create Customer Object
                 Customer newCustomer = CustomerAddDTO.MapToCustomer(customerDTO);
-                newCustomer.ccregion = ccregion;
+                newCustomer.ccregion = customerDTO.ccregion; 
                 _timeLogger.Start("CustomerInsert");
                 Guid newCustomerId = _customerBAL.Insert(newCustomer, newTuple.Item1);
                 _timeLogger.StopAndLog("CustomerInsert");
@@ -94,7 +94,7 @@ namespace CoreCard.Tesla.Falcon.Services
                 Address newAddres = AddressAddDTO.MapToAddress(customerDTO.CustomerAddress);
                 newAddres.customerid = newCustomerId;
                 newAddres.addresstype = 0;
-                newAddres.ccregion = ccregion;
+                newAddres.ccregion = customerDTO.ccregion; 
                 _timeLogger.Start("AddressInsert");
                 _addressBAL.Insert(newAddres, newTuple.Item1);
                 _timeLogger.StopAndLog("AddressInsert");
@@ -112,7 +112,7 @@ namespace CoreCard.Tesla.Falcon.Services
                 newAccount.purchasecount = 0;
                 newAccount.paymentamount = 0;
                 newAccount.paymentcount = 0;
-                newAccount.ccregion = ccregion;
+                newAccount.ccregion = customerDTO.ccregion; 
                 //await _accountRepository.AddAsync(newAccount);
                 _timeLogger.Start("AccountInsert");
                 Guid accountId = _adoaccountRepository.Insert(newAccount, newTuple.Item1);
@@ -130,7 +130,7 @@ namespace CoreCard.Tesla.Falcon.Services
                 loyaltyPlan.accountid = accountId;
                 loyaltyPlan.loyaltyplantype = 0;
                 loyaltyPlan.rewardbal = 0;
-                loyaltyPlan.ccregion = ccregion;
+                loyaltyPlan.ccregion = customerDTO.ccregion; 
                 _timeLogger.Start("AccountLoyaltyplan");
                 _loyaltyPlanBAL.Insert(loyaltyPlan, newTuple.Item1);
                 _timeLogger.StopAndLog("AccountLoyaltyplan");
@@ -163,7 +163,7 @@ namespace CoreCard.Tesla.Falcon.Services
                 aPILog.apiname = "CreateAccount";
                 aPILog.logtime = DateTime.UtcNow;
                 aPILog.response = responseType;
-                aPILog.ccregion = ccregion;
+                aPILog.ccregion = customerDTO.ccregion; 
                 _aPILogBAL.Insert(aPILog);
                 //_accountRepository.Save();
             }
@@ -207,15 +207,15 @@ namespace CoreCard.Tesla.Falcon.Services
         {
             return _adoaccountRepository.Get(AccountNumber);
         }
+        public Account GetAccountByNumber_ADO(UInt64 AccountNumber, string ccregion, DBAdapter.IDataBaseCommand dbCommand)
+        {
+            return _adoaccountRepository.GetAccountByNumber(AccountNumber, ccregion, dbCommand);
+        }
         public Account UpdatePurchase(Account t)
         {
-           return  _adoaccountRepository.UpdatePurchase(t);
+            return _adoaccountRepository.UpdatePurchase(t);
         }
 
-        public Account GetAccountByNumber_ADO(UInt64 AccountNumber, DBAdapter.IDataBaseCommand dbCommand)
-        {
-            return _adoaccountRepository.GetAccountByNumber(AccountNumber, dbCommand);
-        }
         public Account UpdatePurchase(Account t, DBAdapter.IDataBaseCommand dbCommand)
         {
             return _adoaccountRepository.UpdatePurchase(t, dbCommand);
@@ -224,9 +224,10 @@ namespace CoreCard.Tesla.Falcon.Services
         {
             _adoaccountRepository.UpdateAccountWithPayment(t, dbCommand);
         }
-        public Account GetAccountByID_ADO(Guid id, IDataBaseCommand dbCommand)
+
+        public Account GetAccountByID_ADO(Guid id, string ccregion, IDataBaseCommand dbCommand)
         {
-            return _adoaccountRepository.GetAccountByID(id, dbCommand);
+            return _adoaccountRepository.GetAccountByID(id, ccregion, dbCommand);
         }
     }
 }

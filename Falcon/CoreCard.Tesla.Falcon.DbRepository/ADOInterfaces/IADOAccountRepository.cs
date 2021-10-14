@@ -18,7 +18,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 
         Account Get(UInt64 AccountNumber);
 
-        Account GetAccountByID(Guid guid, IDataBaseCommand dataBaseCommand);
-        Account GetAccountByNumber(UInt64 AccountNumber, IDataBaseCommand dataBaseCommand);
+        Account GetAccountByID(Guid guid, string ccregion, IDataBaseCommand dataBaseCommand);
+        Account GetAccountByNumber(UInt64 AccountNumber, string ccregion, IDataBaseCommand dataBaseCommand);
     }
 }

@@ -38,7 +38,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
                 sb.Append(string.Format("fees = {0}, ", p.fees));
                 sb.Append(string.Format("interest = {0}, ", p.interest));
                 sb.Append(string.Format("principal = {0} ", p.principal));
-                sb.Append(" where planid = '" + p.planid.ToString() + "';");
+                sb.Append(" where ccregion='" + p.ccregion + "' and planid = '" + p.planid.ToString() + "';");
                 dbCommand.ExecuteNonQuery(sb.ToString());
             }
         }
@@ -75,14 +75,14 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             }
             return acc;
         }
-        public List<PlanSegment> Get(Guid id, DBAdapter.IDataBaseCommand dbCommand)
+        public List<PlanSegment> Get(Guid id, string ccregion, DBAdapter.IDataBaseCommand dbCommand)
         {
             StringBuilder strQry = new StringBuilder();
             strQry.Append("SELECT planid, ifnull(accountid,'00000000-0000-0000-0000-000000000000') as accountid");
             strQry.Append(", ifnull(plantype,0) as plantype, CreationTime,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount");
             strQry.Append(", ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount");
             strQry.Append(" ,ifnull(paymentamount,0)as paymentamount ");
-            strQry.Append(" FROM plansegment where accountid ='" + id.ToString() + "' for update;");
+            strQry.Append(" FROM plansegment where ccregion='" + ccregion + "' and  accountid ='" + id.ToString() + "' for update;");
             List<PlanSegment> ps = new List<PlanSegment>();
             ps = dbCommand.ExecuteDatareader<PlanSegment>(strQry.ToString());
 

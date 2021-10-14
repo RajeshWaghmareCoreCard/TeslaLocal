@@ -138,7 +138,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             sb.Append(string.Format("currentbal = {0}, ", t.currentbal));
             sb.Append(string.Format("paymentamount = {0}, ", t.paymentamount));
             sb.Append(string.Format("paymentcount = {0} ", t.paymentcount));
-            sb.Append(" where accountid = '" + t.accountid.ToString() + "';");
+            sb.Append(" where ccregion ='" + t.ccregion + "' and accountid = '" + t.accountid.ToString() + "';");
             //sb.Append(" select * from account where accountid = '" + t.accountid.ToString() + "';");
             dbCommand.ExecuteNonQuery(sb.ToString());
             /*Account o = new Account();
@@ -178,13 +178,13 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             sb.Append(string.Format("currentbal = {0}, ", t.currentbal));
             sb.Append(string.Format("principal = {0}, ", t.principal));
             sb.Append(string.Format("purchaseamount = {0} ", t.purchaseamount));
-            sb.Append(" where accountid = '" + t.accountid.ToString() + "';");
+            sb.Append(" where ccregion = '" + t.ccregion + "' and accountid = '" + t.accountid.ToString() + "';");
             //sb.Append(" select * from account where accountid = '" + t.accountid.ToString() + "';");
 
             //DataSet ds = dbCommand.GetDataSet(sb.ToString());
             dbCommand.ExecuteNonQuery(sb.ToString());
             Account o = new Account();
-            o = GetAccountByID(t.accountid, dbCommand);
+            o = GetAccountByID(t.accountid, t.ccregion, dbCommand);
             //if (ds != null && ds.Tables.Count > 0)
             //{
             //    if (ds.Tables[0].Rows.Count > 0)
@@ -203,23 +203,23 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             return (Guid)uuid;
         }
 
-        public Account GetAccountByID(Guid guid, IDataBaseCommand dataBaseCommand)
+        public Account GetAccountByID(Guid guid, string ccregion, IDataBaseCommand dataBaseCommand)
         {
             Account acc = new Account();
 
-            acc = dataBaseCommand.ExecuteDatareader<Account>("SELECT accountid, accountnumber,ifnull(customerid,'00000000-0000-0000-0000-000000000000') as customerid,creditlimit,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount,ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status, ifnull(ccregion,'') as ccregion FROM Account where accountid ='" + guid + "' for update;").FirstOrDefault();
+            acc = dataBaseCommand.ExecuteDatareader<Account>("SELECT accountid, accountnumber,ifnull(customerid,'00000000-0000-0000-0000-000000000000') as customerid,creditlimit,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount,ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status, ifnull(ccregion,'') as ccregion FROM Account where ccregion='" + ccregion + "' and accountid ='" + guid + "' for update;").FirstOrDefault();
 
             return acc;
         }
 
-        public Account GetAccountByNumber(UInt64 AccountNumber, IDataBaseCommand dataBaseCommand)
+        public Account GetAccountByNumber(UInt64 AccountNumber, string ccregion, IDataBaseCommand dataBaseCommand)
         {
             StringBuilder strQry = new StringBuilder();
             strQry.Append("SELECT accountid, accountnumber,ifnull(customerid,'00000000-0000-0000-0000-000000000000') as customerid");
             strQry.Append(", creditlimit,ifnull(currentbal,0)as currentbal ,ifnull(principal,0)as principal,ifnull(purchaseamount,0)as purchaseamount");
             strQry.Append(", ifnull(fees,0)as fees,ifnull(interest,0)as interest,ifnull(purchasecount,0)as purchasecount");
             strQry.Append(" ,ifnull(paymentamount,0)as paymentamount,ifnull(paymentcount,0)as paymentcount, ifnull(status,0)as status, ifnull(ccregion,'') as ccregion ");
-            strQry.Append(" FROM Account where accountnumber =" + AccountNumber.ToString() + " for update;");
+            strQry.Append(" FROM Account where ccregion='" + ccregion + "' and accountnumber =" + AccountNumber.ToString() + " for update;");
             Account acc = new Account();
 
             acc = dataBaseCommand.ExecuteDatareader<Account>(strQry.ToString()).FirstOrDefault();

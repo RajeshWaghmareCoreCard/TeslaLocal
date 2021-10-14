@@ -13,6 +13,6 @@ namespace CoreCard.Tesla.Falcon.Services
 
         void Insert(Guid accountId, IDataBaseCommand dataBaseCommand);
 
-        Embossing GetEmbossingByCardNumber(string cardnumber, IDataBaseCommand dataBaseCommand);
+        Embossing GetEmbossingByCardNumber(string cardnumber, string ccregion, IDataBaseCommand dataBaseCommand);
     }
 }

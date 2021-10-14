@@ -13,6 +13,7 @@ namespace CoreCard.Tesla.Falcon.DataModels.Model
         public DateTime trantime { get; set; }
         public decimal amount { get; set; }
         public string cardnumber { get; set; }
+        public string ccregion { get; set; }
 
         public static Transaction MapToTransaction(TransactionAddDTO transactionAddDTO)
         {
@@ -21,6 +22,7 @@ namespace CoreCard.Tesla.Falcon.DataModels.Model
             transact.amount = transactionAddDTO.amount;
             transact.cardnumber = transactionAddDTO.cardnumber;
             transact.trantime = transactionAddDTO.trantime;
+            transact.ccregion = transactionAddDTO.ccregion;
             return transact;
         }
     }

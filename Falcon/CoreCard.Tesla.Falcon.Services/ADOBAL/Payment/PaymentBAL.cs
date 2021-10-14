@@ -101,7 +101,7 @@ namespace CoreCard.Tesla.Falcon.Services
                             _timeLogger.StopAndLog("SavePointAsync");
 
                             _timeLogger.Start("GetAccountByNumber_ADO");
-                            Account account = _accountBAL.GetAccountByNumber_ADO(paymentaddDTO.accountnumber, newTuple.Item1);
+                            Account account = _accountBAL.GetAccountByNumber_ADO(paymentaddDTO.accountnumber, paymentaddDTO.ccregion, newTuple.Item1);
                             //ccregion = account.ccregion;
                             _timeLogger.StopAndLog("GetAccountByNumber_ADO");
 
@@ -147,7 +147,7 @@ namespace CoreCard.Tesla.Falcon.Services
                                 //Plansegment
 
                                 _timeLogger.Start("GetPlanSegmentsByAccountID_ADO");
-                                List<PlanSegment> planSegments = _planSegmentBAL.GetPlanSegmentsByAccountID_ADO(account.accountid, newTuple.Item1);
+                                List<PlanSegment> planSegments = _planSegmentBAL.GetPlanSegmentsByAccountID_ADO(account.accountid, account.ccregion, newTuple.Item1);
                                 _timeLogger.StopAndLog("GetPlanSegmentsByAccountID_ADO");
 
                                 if (planSegments.Count > 0)
@@ -372,6 +372,7 @@ namespace CoreCard.Tesla.Falcon.Services
                 _apilogBAL.Insert(aPILog);
 
             }
+
 
 
 
