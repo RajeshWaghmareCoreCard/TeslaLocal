@@ -183,8 +183,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
 
             //DataSet ds = dbCommand.GetDataSet(sb.ToString());
             dbCommand.ExecuteNonQuery(sb.ToString());
-            Account o = new Account();
-            o = GetAccountByID(t.accountid, t.ccregion, dbCommand);
+            //o = GetAccountByID(t.accountid, t.ccregion, dbCommand);
             //if (ds != null && ds.Tables.Count > 0)
             //{
             //    if (ds.Tables[0].Rows.Count > 0)
@@ -193,7 +192,7 @@ namespace CoreCard.Tesla.Falcon.ADORepository
             //    }
             //}
 
-            return o;
+            return t;
         }
 
         public Guid Insert(Account t, IDataBaseCommand databaseCommand)
