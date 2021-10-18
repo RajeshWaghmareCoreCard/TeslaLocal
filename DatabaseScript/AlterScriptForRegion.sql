@@ -10,7 +10,7 @@ Verify region names before running
 ALTER DATABASE paymentdb PRIMARY REGION "us-east1";
 ALTER DATABASE paymentdb ADD REGION "us-east2";
 ALTER DATABASE paymentdb ADD REGION "us-west2";
-ALTER DATABASE  cdb_demo SURVIVE REGION FAILURE;
+ALTER DATABASE  paymentdb SURVIVE REGION FAILURE;
 
 alter table embossing add column ccregion crdb_internal_region not null ;
 alter table embossing alter primary key using columns (ccregion, embossingid);
