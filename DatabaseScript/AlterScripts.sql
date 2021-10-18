@@ -1,1 +1,0 @@
-alter table embossing add column binnumber int8;
